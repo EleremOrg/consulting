@@ -1,0 +1,74 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Section from '@components/Section.astro';
+import { SITE } from '~/consts';
+
+const posts = (await getCollection('blog', ({ data }) => !data.draft))
+  .sort((a, b) => b.data.publishedAt.valueOf() - a.data.publishedAt.valueOf());
+
+const formatter = new Intl.DateTimeFormat('en', {
+  year: 'numeric',
+  month: 'long',
+  day: 'numeric',
+});
+
+const blogLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: `${SITE.name} — Insights`,
+  url: `${SITE.url}/blog`,
+  blogPost: posts.map((p) => ({
+    '@type': 'BlogPosting',
+    headline: p.data.title,
+    url: `${SITE.url}/blog/${p.id}`,
+    datePublished: p.data.publishedAt.toISOString(),
+    dateModified: (p.data.updatedAt ?? p.data.publishedAt).toISOString(),
+    author: { '@type': 'Organization', name: p.data.author },
+  })),
+};
+---
+
+<BaseLayout
+  title="Insights"
+  description={`Essays and field notes from ${SITE.name} on software architecture, reliability, engineering leadership and pragmatic modernization.`}
+  jsonLd={[blogLd]}
+>
+  <Section
+    eyebrow="Insights"
+    title="Field notes from the consultancy"
+    description="Essays on software architecture, reliability, engineering leadership and the messy reality of shipping production systems."
+  >
+    {
+      posts.length === 0 ? (
+        <p class="text-slate-600">New essays coming soon.</p>
+      ) : (
+        <ul class="divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+          {posts.map((post) => (
+            <li>
+              <a
+                href={`/blog/${post.id}`}
+                class="flex flex-col gap-2 p-6 hover:bg-slate-50"
+              >
+                <p class="text-xs font-mono uppercase tracking-wider text-slate-500">
+                  <time datetime={post.data.publishedAt.toISOString()}>
+                    {formatter.format(post.data.publishedAt)}
+                  </time>
+                  {post.data.tags.length > 0 && (
+                    <>
+                      <span class="mx-2" aria-hidden="true">·</span>
+                      <span>{post.data.tags.slice(0, 3).join(' · ')}</span>
+                    </>
+                  )}
+                </p>
+                <h2 class="text-xl font-semibold text-slate-900">{post.data.title}</h2>
+                <p class="text-slate-600">{post.data.description}</p>
+                <span class="text-sm font-medium text-brand-700">Read the essay →</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+      )
+    }
+  </Section>
+</BaseLayout>

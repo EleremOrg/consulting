@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+# Block common low-value paths if any are added later
+Disallow: /api/
+Disallow: /admin/
+
+Sitemap: https://elerem.com/sitemap-index.xml

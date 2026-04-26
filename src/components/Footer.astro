@@ -1,0 +1,49 @@
+---
+import { NAV_LINKS, SITE } from '~/consts';
+const year = new Date().getFullYear();
+---
+
+<footer class="mt-24 border-t border-slate-100 bg-slate-50/60">
+  <div class="container-wide py-12 grid gap-10 md:grid-cols-3">
+    <div>
+      <p class="font-display text-lg font-semibold text-slate-900">{SITE.name}</p>
+      <p class="mt-2 text-sm text-slate-600 max-w-xs">{SITE.tagline}. Based remote, working with teams across Europe and North America.</p>
+      <p class="mt-4 text-sm">
+        <a href={`mailto:${SITE.email}`} class="font-medium">{SITE.email}</a>
+      </p>
+    </div>
+
+    <nav aria-label="Footer" class="text-sm">
+      <p class="font-semibold text-slate-900">Sitemap</p>
+      <ul class="mt-3 space-y-2">
+        {NAV_LINKS.map((l) => (
+          <li><a href={l.href} class="text-slate-600 hover:text-slate-900">{l.label}</a></li>
+        ))}
+      </ul>
+    </nav>
+
+    <nav aria-label="Elsewhere" class="text-sm">
+      <p class="font-semibold text-slate-900">Elsewhere</p>
+      <ul class="mt-3 space-y-2">
+        {SITE.sameAs.map((href) => (
+          <li>
+            <a
+              href={href}
+              class="text-slate-600 hover:text-slate-900"
+              rel="me noopener"
+              target="_blank"
+            >
+              {new URL(href).hostname.replace(/^www\./, '')}
+            </a>
+          </li>
+        ))}
+        <li><a href="/rss.xml" class="text-slate-600 hover:text-slate-900">RSS feed</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="container-wide border-t border-slate-200/80 py-6 text-xs text-slate-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+    <p>© {year} {SITE.legalName}. All rights reserved.</p>
+    <p>Built with <a href="https://astro.build" class="underline" rel="noopener">Astro</a>.</p>
+  </div>
+</footer>

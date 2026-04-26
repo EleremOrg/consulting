@@ -1,0 +1,167 @@
+---
+import BaseLayout from "@layouts/BaseLayout.astro";
+import Hero from "@components/Hero.astro";
+import Section from "@components/Section.astro";
+import { SITE } from "~/consts";
+
+const services = [
+  {
+    title: "Architecture & technical due diligence",
+    description:
+      "Deep reviews of your platform, codebase and delivery process. You get a prioritized, risk-weighted roadmap you can actually execute against.",
+  },
+  {
+    title: "Hands-on senior engineering",
+    description:
+      "We embed with your team to ship the hardest parts of your roadmap — platform migrations, data-heavy features, performance-critical systems.",
+  },
+  {
+    title: "Fractional CTO & technical leadership",
+    description:
+      "For early-stage founders and growing teams: hiring, architecture, delivery process and stakeholder communication, without the full-time hire.",
+  },
+  {
+    title: "Reliability & performance engineering",
+    description:
+      "SLOs, incident response, cost-aware scaling, Core Web Vitals. We turn reliability from a cost center into a product advantage.",
+  },
+];
+
+const principles = [
+  {
+    title: "Ship in weeks, not quarters",
+    body: "We break work into vertical slices that reach production fast. Momentum beats perfection.",
+  },
+  {
+    title: "Leave teams stronger than we found them",
+    body: "Every engagement includes knowledge transfer, documentation and pairing — so value compounds after we leave.",
+  },
+  {
+    title: "Boring technology, on purpose",
+    body: "We optimise for clarity, operability and total cost of ownership — not résumé-driven architecture.",
+  },
+];
+
+// Page-specific JSON-LD: ProfessionalService helps Google understand what we do
+const professionalServiceLd = {
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  name: SITE.name,
+  description: SITE.description,
+  url: SITE.url,
+  areaServed: ["Europe", "North America", "Worldwide"],
+  serviceType: [
+    "Software consulting",
+    "Software architecture",
+    "Fractional CTO",
+    "Technical due diligence",
+    "Reliability engineering",
+  ],
+  provider: {
+    "@type": "Organization",
+    name: SITE.name,
+    url: SITE.url,
+  },
+};
+---
+
+<BaseLayout
+  title={SITE.name}
+  description={SITE.description}
+  jsonLd={[professionalServiceLd]}
+>
+  <Hero
+    eyebrow="Independent software consultancy"
+    title="We help ambitious teams ship resilient software, faster."
+    description="Elerem partners with startups and scale-ups on software architecture, hands-on engineering and technical leadership — so your product keeps shipping while your platform gets stronger."
+    primaryCta={{ href: "/contact", label: "Start a conversation" }}
+    secondaryCta={{ href: "/services", label: "See how we work" }}
+  />
+
+  <Section
+    eyebrow="Services"
+    title="Senior-only software consulting"
+    description="Four engagement shapes, one philosophy: pragmatic engineering that moves the business forward."
+  >
+    <ul class="grid gap-6 md:grid-cols-2">
+      {
+        services.map((s) => (
+          <li class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
+            <h3 class="text-lg font-semibold text-slate-900">{s.title}</h3>
+            <p class="mt-2 text-slate-600">{s.description}</p>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="mt-8">
+      <a
+        href="/services"
+        class="font-semibold text-brand-700 hover:text-brand-800"
+        >Explore all services →</a
+      >
+    </div>
+  </Section>
+
+  <Section
+    eyebrow="How we work"
+    title="Three principles that shape every engagement"
+  >
+    <div class="grid gap-6 md:grid-cols-3">
+      {
+        principles.map((p, i) => (
+          <article class="rounded-2xl bg-slate-50 p-6">
+            <p class="text-sm font-mono text-brand-600">0{i + 1}</p>
+            <h3 class="mt-3 text-lg font-semibold text-slate-900">{p.title}</h3>
+            <p class="mt-2 text-slate-600">{p.body}</p>
+          </article>
+        ))
+      }
+    </div>
+  </Section>
+
+  <Section eyebrow="Trusted by builders" title="What clients say">
+    <figure class="rounded-2xl border border-slate-200 bg-white p-8">
+      <blockquote class="text-xl leading-relaxed text-slate-800">
+        "Elerem walked into a two-year platform mess and, in six weeks, produced
+        a migration plan our team actually believed in — then helped us ship the
+        first slice to production. Rare combination of strategic and hands-on."
+      </blockquote>
+      <figcaption class="mt-6 text-sm text-slate-600">
+        <span class="font-semibold text-slate-900">VP of Engineering</span>,
+        Series B SaaS platform
+      </figcaption>
+    </figure>
+  </Section>
+
+  <section class="container-wide py-20">
+    <div
+      class="relative overflow-hidden rounded-3xl bg-slate-900 px-8 py-16 text-white sm:px-16"
+    >
+      <div
+        aria-hidden="true"
+        class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-500/30 blur-3xl"
+      >
+      </div>
+      <h2 class="max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
+        Got a gnarly engineering problem? Let's talk.
+      </h2>
+      <p class="mt-4 max-w-2xl text-slate-300">
+        A 30-minute intro call is free. We'll tell you honestly whether we can
+        help — and, if not, who might.
+      </p>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a
+          href="/contact"
+          class="btn bg-white text-slate-900 hover:bg-slate-100"
+          >Book an intro call</a
+        >
+        <a
+          href={`mailto:${SITE.email}`}
+          class="btn border border-white/20 text-white hover:bg-white/10"
+        >
+          {SITE.email}
+        </a>
+      </div>
+    </div>
+  </section>
+</BaseLayout>

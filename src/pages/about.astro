@@ -1,0 +1,85 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Section from '@components/Section.astro';
+import { SITE } from '~/consts';
+
+const faqs = [
+  {
+    q: 'What kinds of clients do you work with?',
+    a: 'Mostly venture-backed startups and scale-ups between seed and Series C, across SaaS, fintech, devtools and data-intensive products. We also take selective engagements with established companies undergoing platform modernization.',
+  },
+  {
+    q: 'Do you work remotely?',
+    a: 'Yes. We work remote-first with clients across Europe and North America, and travel on-site for workshops, kickoffs and key milestones whenever it makes a difference.',
+  },
+  {
+    q: 'What does an engagement typically cost?',
+    a: 'Architecture reviews are usually fixed-fee in the low five figures. Embedded engineering and fractional CTO work is a weekly retainer sized to the scope. We are happy to share ballpark figures on a first call.',
+  },
+  {
+    q: 'Do you sign NDAs?',
+    a: 'Yes — standard mutual NDAs are fine. Let us know up front and we will turn one around quickly.',
+  },
+  {
+    q: 'Can you start next week?',
+    a: "Sometimes. We keep a small buffer for short, high-impact engagements. If you're on a tight timeline, mention it in your first message and we'll be honest about availability.",
+  },
+];
+
+const faqLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((f) => ({
+    '@type': 'Question',
+    name: f.q,
+    acceptedAnswer: { '@type': 'Answer', text: f.a },
+  })),
+};
+---
+
+<BaseLayout
+  title="About Elerem"
+  description="Elerem is an independent software consultancy. We partner with ambitious teams on architecture, engineering and technical leadership — senior, pragmatic and outcome-focused."
+  jsonLd={[faqLd]}
+>
+  <Section
+    eyebrow="About"
+    title={`${SITE.name} is a senior-only software consultancy`}
+    description="We started Elerem because too many engineering engagements are staffed for billable hours, not outcomes. Our bet is simple: small, senior teams with real ownership deliver more value than large ones with none."
+  >
+    <div class="prose max-w-none">
+      <h2>What we believe</h2>
+      <p>
+        Software is a means, not an end. The best engineering work is the kind
+        that disappears into a product that customers love and a team that
+        sleeps well at night. That framing shapes how we pick projects, how we
+        staff them, and how we measure success.
+      </p>
+      <h2>How we're structured</h2>
+      <p>
+        Elerem is a small partnership of senior engineers, each with 10+ years
+        of shipping production systems in startups and scale-ups. We take on a
+        limited number of engagements concurrently so that the partner you meet
+        on the first call is the engineer doing the work.
+      </p>
+      <h2>Where we work</h2>
+      <p>
+        Remote-first, with clients across Europe and North America. We travel
+        on-site for kickoffs, workshops and tough milestones.
+      </p>
+    </div>
+  </Section>
+
+  <Section eyebrow="FAQ" title="Frequently asked questions">
+    <dl class="divide-y divide-slate-200 rounded-2xl border border-slate-200 bg-white">
+      {
+        faqs.map((f) => (
+          <div class="p-6">
+            <dt class="text-lg font-semibold text-slate-900">{f.q}</dt>
+            <dd class="mt-2 text-slate-600">{f.a}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </Section>
+</BaseLayout>

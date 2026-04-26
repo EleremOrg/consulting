@@ -1,0 +1,104 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Section from '@components/Section.astro';
+import { SITE } from '~/consts';
+
+const contactLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ContactPage',
+  name: `Contact ${SITE.name}`,
+  url: `${SITE.url}/contact`,
+  mainEntity: {
+    '@type': 'Organization',
+    name: SITE.name,
+    email: SITE.email,
+    url: SITE.url,
+  },
+};
+---
+
+<BaseLayout
+  title="Contact"
+  description={`Start a conversation with ${SITE.name}. Tell us about your engineering challenge and we'll come back within one business day.`}
+  jsonLd={[contactLd]}
+>
+  <Section
+    eyebrow="Contact"
+    title="Let's talk about your engineering challenge"
+    description="Tell us a little about what you're working on. We reply to every message within one business day — and we'll be honest if we're not the right fit."
+  >
+    <div class="grid gap-10 md:grid-cols-5">
+      <div class="md:col-span-3">
+        <form
+          name="contact"
+          method="POST"
+          action="https://formspree.io/f/your-form-id"
+          class="space-y-5 rounded-2xl border border-slate-200 bg-white p-6 shadow-sm"
+        >
+          <div>
+            <label for="name" class="block text-sm font-medium text-slate-800">Your name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              autocomplete="name"
+              class="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+            />
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-slate-800">Work email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              class="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+            />
+          </div>
+          <div>
+            <label for="company" class="block text-sm font-medium text-slate-800">Company</label>
+            <input
+              id="company"
+              name="company"
+              type="text"
+              autocomplete="organization"
+              class="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+            />
+          </div>
+          <div>
+            <label for="message" class="block text-sm font-medium text-slate-800">How can we help?</label>
+            <textarea
+              id="message"
+              name="message"
+              rows="5"
+              required
+              class="mt-1 block w-full rounded-lg border border-slate-300 px-3 py-2 text-slate-900 shadow-sm focus:border-brand-500 focus:ring-brand-500"
+            ></textarea>
+          </div>
+          <button type="submit" class="btn-primary w-full sm:w-auto">Send message</button>
+          <p class="text-xs text-slate-500">By submitting, you agree we may contact you about your enquiry. No marketing, ever.</p>
+        </form>
+      </div>
+
+      <aside class="md:col-span-2 space-y-6">
+        <div class="rounded-2xl bg-slate-50 p-6">
+          <h3 class="font-semibold text-slate-900">Prefer email?</h3>
+          <p class="mt-2 text-slate-600 text-sm">
+            Write to <a href={`mailto:${SITE.email}`} class="font-medium">{SITE.email}</a>.
+            A sentence or two on your context is plenty — we'll take it from there.
+          </p>
+        </div>
+        <div class="rounded-2xl bg-slate-50 p-6">
+          <h3 class="font-semibold text-slate-900">What happens next</h3>
+          <ol class="mt-2 space-y-2 text-sm text-slate-600 list-decimal pl-4">
+            <li>We reply within one business day.</li>
+            <li>30-minute intro call, no obligation.</li>
+            <li>If we're a fit, a short written proposal with scope & fees.</li>
+          </ol>
+        </div>
+      </aside>
+    </div>
+  </Section>
+</BaseLayout>

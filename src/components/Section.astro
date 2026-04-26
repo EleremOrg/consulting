@@ -1,0 +1,23 @@
+---
+export interface Props {
+  eyebrow?: string;
+  title?: string;
+  description?: string;
+  id?: string;
+  as?: 'section' | 'article' | 'div';
+}
+const { eyebrow, title, description, id, as: Tag = 'section' } = Astro.props;
+---
+
+<Tag id={id} class="container-wide py-16 sm:py-24">
+  {(eyebrow || title || description) && (
+    <header class="max-w-2xl">
+      {eyebrow && <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">{eyebrow}</p>}
+      {title && <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>}
+      {description && <p class="mt-4 text-lg text-slate-600">{description}</p>}
+    </header>
+  )}
+  <div class="mt-10">
+    <slot />
+  </div>
+</Tag>

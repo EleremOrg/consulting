@@ -1,0 +1,29 @@
+---
+import BaseHead, { type Props as SeoProps } from '@components/BaseHead.astro';
+import Header from '@components/Header.astro';
+import Footer from '@components/Footer.astro';
+import { SITE } from '~/consts';
+import '~/styles/global.css';
+
+type Props = SeoProps;
+const props = Astro.props;
+---
+
+<!doctype html>
+<html lang={SITE.language} class="scroll-pt-20">
+  <head>
+    <BaseHead {...props} />
+  </head>
+  <body class="flex min-h-screen flex-col">
+    <a
+      href="#main"
+      class="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:rounded focus:bg-white focus:px-3 focus:py-2 focus:text-sm focus:shadow"
+      >Skip to content</a
+    >
+    <Header />
+    <main id="main" class="flex-1">
+      <slot />
+    </main>
+    <Footer />
+  </body>
+</html>
