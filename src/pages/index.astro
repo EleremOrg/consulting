@@ -4,42 +4,66 @@ import Hero from "@components/Hero.astro";
 import Section from "@components/Section.astro";
 import { SITE } from "~/consts";
 
-const services = [
+// Featured (left) + supporting (right) services for the new home layout.
+const featuredService = {
+  title: "Architecture & technical due diligence",
+  summary:
+    "Deep, written assessments of your platform, codebase and delivery process — delivered in 2–4 weeks.",
+  bullets: [
+    "Prioritised risk register",
+    "Target architecture & migration roadmap",
+    "Executive-ready written report",
+  ],
+  href: "/services#architecture-review",
+};
+
+const supportingServices = [
   {
-    title: "Architecture & technical due diligence",
+    title: "Embedded engineering",
     description:
-      "Deep reviews of your platform, codebase and delivery process. You get a prioritized, risk-weighted roadmap you can actually execute against.",
+      "Senior teams that ship the hardest parts of your roadmap with your engineers — and document it as they go.",
+    accent: "from-brand-500 to-brand-700",
   },
   {
-    title: "Hands-on senior engineering",
+    title: "Fractional CTO",
     description:
-      "We embed with your team to ship the hardest parts of your roadmap — platform migrations, data-heavy features, performance-critical systems.",
+      "Hiring, architecture, delivery process and investor-grade technical comms — without the full-time hire.",
+    accent: "from-accent-500 to-brand-600",
   },
   {
-    title: "Fractional CTO & technical leadership",
+    title: "Reliability & performance",
     description:
-      "For early-stage founders and growing teams: hiring, architecture, delivery process and stakeholder communication, without the full-time hire.",
-  },
-  {
-    title: "Reliability & performance engineering",
-    description:
-      "SLOs, incident response, cost-aware scaling, Core Web Vitals. We turn reliability from a cost center into a product advantage.",
+      "SLOs, incident response, Core Web Vitals and cost-aware scaling for products customers cannot see break.",
+    accent: "from-amber-500 to-pink-500",
   },
 ];
 
-const principles = [
+const steps = [
   {
-    title: "Ship in weeks, not quarters",
-    body: "We break work into vertical slices that reach production fast. Momentum beats perfection.",
+    title: "Intro call",
+    body: "30 minutes, free. We listen, ask sharp questions, and tell you honestly whether we can help.",
   },
   {
-    title: "Leave teams stronger than we found them",
-    body: "Every engagement includes knowledge transfer, documentation and pairing — so value compounds after we leave.",
+    title: "Written proposal",
+    body: "A short, fixed-scope proposal with deliverables, timeline and a single fee — usually within 3 days.",
   },
   {
-    title: "Boring technology, on purpose",
-    body: "We optimise for clarity, operability and total cost of ownership — not résumé-driven architecture.",
+    title: "Kickoff",
+    body: "We meet your team, align on the first slice, and start shipping inside the first week.",
   },
+  {
+    title: "Handover",
+    body: "Documentation, runbooks and a senior team that's measurably stronger than when we arrived.",
+  },
+];
+
+const proofLogos = [
+  "Series B fintech",
+  "Climate SaaS",
+  "Healthtech",
+  "Devtools",
+  "Marketplace",
+  "AI infra",
 ];
 
 // Page-specific JSON-LD: ProfessionalService helps Google understand what we do
@@ -72,96 +96,278 @@ const professionalServiceLd = {
 >
   <Hero
     eyebrow="Independent software consultancy"
-    title="We help ambitious teams ship resilient software, faster."
+    title="Resilient software,"
+    titleAccent="shipped faster."
     description="Elerem partners with startups and scale-ups on software architecture, hands-on engineering and technical leadership — so your product keeps shipping while your platform gets stronger."
-    primaryCta={{ href: "/contact", label: "Start a conversation" }}
+    primaryCta={{ href: "/contact", label: "Book intro call" }}
     secondaryCta={{ href: "/services", label: "See how we work" }}
   />
 
+  {/* ── Proof strip ────────────────────────────────────────────────── */}
+  <section aria-label="Trusted by" class="border-b border-slate-200/60 bg-sand-50/60">
+    <div class="container-wide flex flex-col items-center gap-6 py-10 lg:flex-row lg:gap-10">
+      <p class="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+        Trusted by teams · seed → Series C
+      </p>
+      <ul class="grid w-full grid-cols-2 gap-3 sm:grid-cols-3 lg:flex lg:flex-1 lg:items-center lg:justify-end lg:gap-6">
+        {
+          proofLogos.map((name) => (
+            <li class="flex items-center justify-center rounded-md bg-white/70 px-3 py-2 text-sm font-medium text-slate-500 ring-1 ring-inset ring-slate-200/70">
+              {name}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ── What we do: featured service + supporting cards ───────────── */}
   <Section
-    eyebrow="Services"
-    title="Senior-only software consulting"
-    description="Four engagement shapes, one philosophy: pragmatic engineering that moves the business forward."
+    eyebrow="What we do"
+    title="One philosophy, four engagement shapes"
+    description="Pragmatic engineering that moves the business forward — scoped to a specific outcome, with a fixed-fee option wherever we can."
   >
-    <ul class="grid gap-6 md:grid-cols-2">
-      {
-        services.map((s) => (
-          <li class="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:shadow-md transition-shadow">
-            <h3 class="text-lg font-semibold text-slate-900">{s.title}</h3>
-            <p class="mt-2 text-slate-600">{s.description}</p>
-          </li>
-        ))
-      }
-    </ul>
+    <div class="grid gap-6 lg:grid-cols-12">
+      {/* Featured service — bold gradient panel */}
+      <a
+        href={featuredService.href}
+        class="group relative col-span-12 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-600 via-brand-700 to-ink-900 p-8 text-white transition-transform hover:-translate-y-0.5 sm:p-10 lg:col-span-7"
+      >
+        <div aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent-400/30 blur-3xl"></div>
+        <div aria-hidden="true" class="absolute -left-16 bottom-[-6rem] h-56 w-56 rounded-full bg-pink-400/20 blur-3xl"></div>
+
+        <p class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur">
+          Most-requested engagement
+        </p>
+        <h3 class="relative mt-5 max-w-xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+          {featuredService.title}
+        </h3>
+        <p class="relative mt-4 max-w-md text-white/80">{featuredService.summary}</p>
+
+        <ul class="relative mt-6 grid gap-2 text-sm text-white/85 sm:grid-cols-2">
+          {
+            featuredService.bullets.map((b) => (
+              <li class="flex items-start gap-2">
+                <span aria-hidden="true" class="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent-300"></span>
+                <span>{b}</span>
+              </li>
+            ))
+          }
+        </ul>
+
+        <p class="relative mt-8 inline-flex items-center gap-1 text-sm font-semibold text-white">
+          Read more
+          <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+        </p>
+      </a>
+
+      {/* Supporting services — three coloured tiles */}
+      <ul class="col-span-12 grid gap-4 lg:col-span-5">
+        {
+          supportingServices.map((s, i) => (
+            <li class="card group relative overflow-hidden p-6 transition-transform hover:-translate-y-0.5">
+              <div
+                aria-hidden="true"
+                class:list={[
+                  "absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br opacity-30 blur-2xl transition-opacity group-hover:opacity-50",
+                  s.accent,
+                ]}
+              ></div>
+              <p class="font-mono text-[11px] uppercase tracking-widest text-brand-600">
+                0{i + 2}
+              </p>
+              <h3 class="mt-1.5 text-lg font-semibold text-ink-900">{s.title}</h3>
+              <p class="mt-1.5 text-sm leading-relaxed text-slate-600">
+                {s.description}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
     <div class="mt-8">
       <a
         href="/services"
-        class="font-semibold text-brand-700 hover:text-brand-800"
-        >Explore all services →</a
+        class="inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800"
       >
+        Explore all services <span aria-hidden="true">→</span>
+      </a>
     </div>
   </Section>
 
+  {/* ── Process timeline ──────────────────────────────────────────── */}
   <Section
     eyebrow="How we work"
-    title="Three principles that shape every engagement"
+    title="From first message to handover"
+    description="A predictable, low-friction path from intro call to a stronger team."
+    tone="sand"
   >
-    <div class="grid gap-6 md:grid-cols-3">
-      {
-        principles.map((p, i) => (
-          <article class="rounded-2xl bg-slate-50 p-6">
-            <p class="text-sm font-mono text-brand-600">0{i + 1}</p>
-            <h3 class="mt-3 text-lg font-semibold text-slate-900">{p.title}</h3>
-            <p class="mt-2 text-slate-600">{p.body}</p>
-          </article>
-        ))
-      }
-    </div>
-  </Section>
-
-  <Section eyebrow="Trusted by builders" title="What clients say">
-    <figure class="rounded-2xl border border-slate-200 bg-white p-8">
-      <blockquote class="text-xl leading-relaxed text-slate-800">
-        "Elerem walked into a two-year platform mess and, in six weeks, produced
-        a migration plan our team actually believed in — then helped us ship the
-        first slice to production. Rare combination of strategic and hands-on."
-      </blockquote>
-      <figcaption class="mt-6 text-sm text-slate-600">
-        <span class="font-semibold text-slate-900">VP of Engineering</span>,
-        Series B SaaS platform
-      </figcaption>
-    </figure>
-  </Section>
-
-  <section class="container-wide py-20">
-    <div
-      class="relative overflow-hidden rounded-3xl bg-slate-900 px-8 py-16 text-white sm:px-16"
-    >
+    <ol class="relative grid gap-8 md:grid-cols-4 md:gap-6">
+      {/* Connecting hairline */}
       <div
         aria-hidden="true"
-        class="absolute -right-24 -top-24 h-72 w-72 rounded-full bg-brand-500/30 blur-3xl"
-      >
-      </div>
-      <h2 class="max-w-2xl text-3xl font-bold tracking-tight sm:text-4xl">
-        Got a gnarly engineering problem? Let's talk.
-      </h2>
-      <p class="mt-4 max-w-2xl text-slate-300">
-        A 30-minute intro call is free. We'll tell you honestly whether we can
-        help — and, if not, who might.
-      </p>
-      <div class="mt-8 flex flex-wrap gap-3">
-        <a
-          href="/contact"
-          class="btn bg-white text-slate-900 hover:bg-slate-100"
-          >Book an intro call</a
-        >
-        <a
-          href={`mailto:${SITE.email}`}
-          class="btn border border-white/20 text-white hover:bg-white/10"
-        >
-          {SITE.email}
-        </a>
+        class="absolute left-4 top-4 hidden h-0.5 w-[calc(100%-2rem)] bg-gradient-to-r from-brand-300 via-accent-400 to-brand-500 md:block"
+      ></div>
+      {
+        steps.map((step, i) => (
+          <li class="relative">
+            <span
+              class:list={[
+                "relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white shadow-sm",
+                i === 0
+                  ? "bg-brand-600"
+                  : i === 1
+                    ? "bg-brand-500"
+                    : i === 2
+                      ? "bg-accent-500"
+                      : "bg-ink-900",
+              ]}
+            >
+              0{i + 1}
+            </span>
+            <h3 class="mt-4 text-base font-semibold text-ink-900">{step.title}</h3>
+            <p class="mt-1.5 text-sm leading-relaxed text-slate-600">{step.body}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </Section>
+
+  {/* ── Outcomes — full-bleed ink band with quote + stats ─────────── */}
+  <section class="relative overflow-hidden bg-ink-900 text-white">
+    <div aria-hidden="true" class="absolute inset-0 -z-0">
+      <div class="absolute -top-32 -left-20 h-[28rem] w-[28rem] rounded-full bg-brand-500/30 blur-3xl"></div>
+      <div class="absolute bottom-[-10rem] right-[-6rem] h-[26rem] w-[26rem] rounded-full bg-accent-500/25 blur-3xl"></div>
+    </div>
+
+    <div class="container-wide relative py-20 sm:py-24">
+      <p class="eyebrow !text-accent-300">Outcomes</p>
+      <div class="mt-6 grid gap-12 lg:grid-cols-12 lg:gap-10">
+        {/* Big pull quote */}
+        <figure class="lg:col-span-7">
+          <blockquote class="font-display text-3xl leading-tight text-white sm:text-4xl">
+            <span class="text-accent-300">"</span>Elerem walked into a two-year
+            platform mess and, in six weeks, produced a migration plan our team
+            actually believed in — then helped us ship the first slice to
+            production.<span class="text-accent-300">"</span>
+          </blockquote>
+          <figcaption class="mt-6 flex items-center gap-3 text-sm text-slate-300">
+            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-accent-500 font-semibold text-white">
+              VP
+            </span>
+            <span>
+              <span class="block font-semibold text-white">VP of Engineering</span>
+              <span class="text-slate-400">Series B SaaS platform</span>
+            </span>
+          </figcaption>
+        </figure>
+
+        {/* Stats */}
+        <dl class="grid grid-cols-2 gap-x-6 gap-y-8 lg:col-span-5">
+          <div class="border-l-2 border-accent-400 pl-4">
+            <dt class="text-xs font-medium uppercase tracking-wider text-slate-400">
+              Yrs senior eng (median)
+            </dt>
+            <dd class="mt-1 font-display text-3xl font-bold text-white">15+</dd>
+          </div>
+          <div class="border-l-2 border-brand-400 pl-4">
+            <dt class="text-xs font-medium uppercase tracking-wider text-slate-400">
+              Time to first prod ship
+            </dt>
+            <dd class="mt-1 font-display text-3xl font-bold text-white">≤ 6 wks</dd>
+          </div>
+          <div class="border-l-2 border-pink-400 pl-4">
+            <dt class="text-xs font-medium uppercase tracking-wider text-slate-400">
+              Stages we serve
+            </dt>
+            <dd class="mt-1 font-display text-3xl font-bold text-white">Seed → C</dd>
+          </div>
+          <div class="border-l-2 border-amber-400 pl-4">
+            <dt class="text-xs font-medium uppercase tracking-wider text-slate-400">
+              Client NPS
+            </dt>
+            <dd class="mt-1 font-display text-3xl font-bold text-white">72</dd>
+          </div>
+        </dl>
       </div>
     </div>
   </section>
+
+  {/* ── CTA: Cal.com inline embed ──────────────────────────────────
+       Booking widget replaces the static CTA banner so visitors can pick a slot
+       without leaving the page. The Cal script is deferred and loaded only on
+       this page (not in BaseLayout) to keep every other route 0-JS / 0-network. */}
+  <section id="book" class="container-wide py-20">
+    <div class="mx-auto max-w-2xl text-center">
+      <p class="flex justify-center"><span class="eyebrow">Book a 30-min intro call</span></p>
+      <h2 class="mt-3 h-section">Got a gnarly engineering problem? Let's talk.</h2>
+      <p class="mt-4 text-lg text-slate-600">
+        Pick any slot below — no obligation. Or write to
+        <a href={`mailto:${SITE.email}`} class="font-semibold text-brand-700 hover:text-brand-800">{SITE.email}</a>.
+      </p>
+    </div>
+
+    {/* Cal.com inline embed mount point — no wrapper, the widget sizes itself.
+        min-height reserves space before load to avoid layout shift. */}
+    <div
+      id="my-cal-inline-30min"
+      class="mt-10 w-full"
+      style="min-height:560px"
+    />
+
+
+    <p class="mt-4 text-center text-xs text-slate-500">
+      Booking powered by <a href="https://cal.com" rel="noopener" class="underline hover:text-ink-900">Cal.com</a>.
+      Prefer a written brief? <a href="/contact" class="underline hover:text-ink-900">Use the contact form</a>.
+    </p>
+  </section>
+
+  {/* Cal.com loader. is:inline emits the snippet verbatim (Cal's IIFE expects to run as-is).
+      requestIdleCallback defers the network call for embed.js until the browser is idle,
+      so first paint / LCP / INP are not affected for users who never reach this section. */}
+  <script is:inline defer>
+    (function () {
+      function loadCal() {
+        (function (C, A, L) {
+          let p = function (a, ar) { a.q.push(ar); };
+          let d = C.document;
+          C.Cal = C.Cal || function () {
+            let cal = C.Cal; let ar = arguments;
+            if (!cal.loaded) {
+              cal.ns = {}; cal.q = cal.q || [];
+              d.head.appendChild(d.createElement("script")).src = A;
+              cal.loaded = true;
+            }
+            if (ar[0] === L) {
+              const api = function () { p(api, arguments); };
+              const namespace = ar[1];
+              api.q = api.q || [];
+              if (typeof namespace === "string") {
+                cal.ns[namespace] = cal.ns[namespace] || api;
+                p(cal.ns[namespace], ar);
+                p(cal, ["initNamespace", namespace]);
+              } else { p(cal, ar); }
+              return;
+            }
+            p(cal, ar);
+          };
+        })(window, "https://app.cal.eu/embed/embed.js", "init");
+
+        Cal("init", "30min", { origin: "https://app.cal.eu" });
+        Cal.ns["30min"]("inline", {
+          elementOrSelector: "#my-cal-inline-30min",
+          config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
+          calLink: "lucas-montes-9vahqq/30min",
+        });
+        Cal.ns["30min"]("ui", { hideEventTypeDetails: false, layout: "month_view" });
+      }
+
+      if ("requestIdleCallback" in window) {
+        requestIdleCallback(loadCal, { timeout: 2500 });
+      } else {
+        setTimeout(loadCal, 1500);
+      }
+    })();
+  </script>
 </BaseLayout>

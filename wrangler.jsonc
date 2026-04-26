@@ -1,0 +1,19 @@
+/**
+ * Cloudflare Workers configuration for the Elerem static site.
+ * Docs: https://developers.cloudflare.com/workers/static-assets/
+ *
+ * Astro builds the site into ./dist, and Workers serves it from there.
+ * `not_found_handling` lets Astro's custom 404 page work as expected.
+ */
+{
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "elerem-website",
+  "compatibility_date": "2026-04-26",
+  "assets": {
+    "directory": "./dist",
+    "not_found_handling": "404-page"
+  },
+  "observability": {
+    "enabled": true
+  }
+}

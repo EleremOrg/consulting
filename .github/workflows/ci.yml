@@ -1,4 +1,4 @@
-name: Lint & Test
+name: Lint & Build
 
 on:
   workflow_call:
@@ -7,32 +7,35 @@ on:
       - '*'
     tags-ignore:
       - '**'
-
-env: 
-  CARGO_TERM_COLOR: always
+  pull_request:
+    types: [opened, reopened, synchronize]
 
 jobs:
-  test-and-lint:
-    name: Test and lint
+  build:
+    name: Type-check & build
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
-      
-      - name: Install Rust
-        uses: actions-rs/toolchain@v1
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
         with:
-          toolchain: stable
-      
-      - uses: Swatinem/rust-cache@v2
-         
-      - name: Rust fmt
-        run: cargo fmt -- --check
+          run_install: false
 
-      - name: Rust clippy
-        run: cargo clippy --locked
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: pnpm
 
-      - name: Rust test
-        run: cargo test --all --locked
-      
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Astro check (types & content collections)
+        run: pnpm check
+
+      - name: Build
+        run: pnpm build
+

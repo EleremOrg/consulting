@@ -5,29 +5,53 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
+/* ──────────────────────────────────────────────────────────────────
+   Design tokens
+   Palette: electric indigo (brand) + teal (accent) + sand (surface)
+   Inspired by Stripe/Linear — clean, scannable, B2B-trustworthy.
+   ────────────────────────────────────────────────────────────────── */
 @theme {
-  --color-brand-50: #f2f7ff;
-  --color-brand-100: #e4eeff;
-  --color-brand-200: #c3d8ff;
-  --color-brand-300: #92b7ff;
-  --color-brand-400: #5c8cff;
-  --color-brand-500: #3566f4;
-  --color-brand-600: #2149db;
-  --color-brand-700: #1a38ac;
-  --color-brand-800: #172f89;
-  --color-brand-900: #132768;
-  --color-brand-950: #0a1640;
+  /* Brand — electric indigo */
+  --color-brand-50:  #f1f1fb;
+  --color-brand-100: #e3e3f7;
+  --color-brand-200: #c7c7ef;
+  --color-brand-300: #a3a3e3;
+  --color-brand-400: #7e7ed8;
+  --color-brand-500: #5b5bd6;
+  --color-brand-600: #4f46d4;
+  --color-brand-700: #3f36b8;
+  --color-brand-800: #312a8f;
+  --color-brand-900: #221d63;
+  --color-brand-950: #14114a;
 
-  --font-sans: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
-  --font-display: Inter, ui-sans-serif, system-ui, sans-serif;
+  /* Accent — teal */
+  --color-accent-50:  #ecfeff;
+  --color-accent-100: #cffafe;
+  --color-accent-200: #a5f3fc;
+  --color-accent-300: #67e8f9;
+  --color-accent-400: #22d3ee;
+  --color-accent-500: #0fb5ba;
+  --color-accent-600: #0e9ba0;
+  --color-accent-700: #117a82;
+  --color-accent-800: #155e64;
+  --color-accent-900: #164e54;
+
+  /* Sand — warm neutral surface for alternating sections */
+  --color-sand-50:  #faf7f2;
+  --color-sand-100: #f5f0e6;
+  --color-sand-200: #ebe2d0;
+
+  /* Ink — cooler than slate-900 for headings */
+  --color-ink-900: #0b1020;
+  --color-ink-800: #1a2036;
+
+  /* Typography */
+  --font-sans:    "Inter", ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-mono:    ui-monospace, SFMono-Regular, "JetBrains Mono", Menlo, monospace;
 }
 
 @layer base {
-  :root {
-    --brand-bg: #ffffff;
-    --brand-fg: #0a1640;
-  }
-
   html {
     scroll-behavior: smooth;
     -webkit-text-size-adjust: 100%;
@@ -35,19 +59,24 @@
   }
 
   body {
-    @apply bg-white text-slate-800 antialiased font-sans;
-    font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
+    @apply bg-white text-slate-700 antialiased font-sans;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11", "ss01";
   }
 
   h1, h2, h3, h4, h5, h6 {
-    @apply font-display tracking-tight text-slate-900;
+    @apply font-display tracking-tight text-ink-900;
+    letter-spacing: -0.02em;
   }
 
   a {
     @apply text-brand-600;
   }
 
-  /* Respect user preferences */
+  ::selection {
+    background: var(--color-brand-200);
+    color: var(--color-brand-900);
+  }
+
   @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
       animation-duration: 0.01ms !important;
@@ -56,28 +85,105 @@
     }
   }
 
-  /* Accessible focus states */
   :focus-visible {
     @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white rounded;
   }
 }
 
+/* ──────────────────────────────────────────────────────────────────
+   Component primitives
+   ────────────────────────────────────────────────────────────────── */
 @layer components {
+  /* Containers — wider than before. */
   .container-prose {
     @apply mx-auto w-full max-w-3xl px-4 sm:px-6;
   }
   .container-wide {
-    @apply mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8;
+    @apply mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8;
   }
+  @media (min-width: 1536px) {
+    .container-wide { max-width: 88rem; } /* 1408px on 2xl+ */
+  }
+
+  /* Buttons */
   .btn,
   .btn-primary,
-  .btn-ghost {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-sm font-semibold transition-colors;
+  .btn-ghost,
+  .btn-dark {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-2.5 text-sm font-semibold transition-colors;
   }
   .btn-primary {
-    @apply bg-brand-600 text-white hover:bg-brand-700;
+    @apply bg-brand-600 text-white hover:bg-brand-700 shadow-sm;
   }
   .btn-ghost {
     @apply border border-slate-200 text-slate-900 hover:bg-slate-50;
+  }
+  .btn-dark {
+    @apply bg-ink-900 text-white hover:bg-ink-800;
+  }
+
+  /* Cards — Stripe-style hairline + inset highlight, no heavy shadow */
+  .card {
+    @apply rounded-2xl border border-slate-200/80 bg-white;
+    box-shadow:
+      0 1px 0 0 rgb(255 255 255 / 60%) inset,
+      0 1px 2px 0 rgb(11 16 32 / 4%);
+  }
+  .card-tinted {
+    @apply rounded-2xl border border-sand-200/70 bg-sand-50;
+  }
+
+  /* Eyebrow label */
+  .eyebrow {
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700;
+  }
+  .eyebrow::before {
+    content: "";
+    @apply inline-block h-1.5 w-1.5 rounded-full bg-brand-500;
+  }
+
+  /* Section heading scale */
+  .h-display {
+    @apply font-display text-4xl font-bold leading-[1.05] sm:text-5xl md:text-6xl;
+    letter-spacing: -0.035em;
+  }
+  .h-section {
+    @apply font-display text-3xl font-bold leading-tight tracking-tight sm:text-4xl;
+    letter-spacing: -0.025em;
+  }
+
+  /* Pill chip (used for filters, tags) */
+  .chip {
+    @apply inline-flex items-center gap-1.5 rounded-full border border-slate-200 bg-white px-3 py-1 text-xs font-medium text-slate-700 transition-colors hover:border-brand-300 hover:text-brand-700;
+  }
+  .chip-active {
+    @apply border-brand-300 bg-brand-50 text-brand-700;
+  }
+
+  /* Number + label tile */
+  .stat {
+    @apply rounded-xl border border-slate-200/70 bg-white p-4;
+  }
+  .stat-num {
+    @apply font-display text-2xl font-bold tracking-tight text-ink-900;
+  }
+  .stat-label {
+    @apply mt-1 text-xs font-medium uppercase tracking-wider text-slate-500;
+  }
+
+  /* Subtle grid background for hero */
+  .bg-grid {
+    background-image:
+      linear-gradient(to right, rgb(11 16 32 / 4%) 1px, transparent 1px),
+      linear-gradient(to bottom, rgb(11 16 32 / 4%) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
+
+  /* Gradient text used sparingly for emphasis */
+  .text-gradient-brand {
+    background: linear-gradient(110deg, var(--color-brand-700), var(--color-accent-600));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
   }
 }

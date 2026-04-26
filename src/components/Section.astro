@@ -1,23 +1,83 @@
 ---
+import SectionHeader from '@components/SectionHeader.astro';
+
 export interface Props {
   eyebrow?: string;
   title?: string;
   description?: string;
   id?: string;
   as?: 'section' | 'article' | 'div';
+  /**
+   * Layout strategy:
+   *  - `stacked` (default): header on top, content below — full width.
+   *  - `side`: 12-col grid, header in left 5 cols, content in right 7 cols.
+   *           Use for reference / explanatory sections where the eye should
+   *           travel diagonally rather than top-to-bottom.
+   */
+  layout?: 'stacked' | 'side';
+  /** Background tint for visual rhythm between sections. */
+  tone?: 'plain' | 'sand' | 'ink';
+  /** Vertical padding scale. */
+  spacing?: 'sm' | 'md' | 'lg';
 }
-const { eyebrow, title, description, id, as: Tag = 'section' } = Astro.props;
+
+const {
+  eyebrow,
+  title,
+  description,
+  id,
+  as: Tag = 'section',
+  layout = 'stacked',
+  tone = 'plain',
+  spacing = 'md',
+} = Astro.props;
+
+const toneClass =
+  tone === 'sand'
+    ? 'bg-sand-50'
+    : tone === 'ink'
+      ? 'bg-ink-900 text-slate-300'
+      : '';
+
+const spacingClass =
+  spacing === 'sm'
+    ? 'py-12 sm:py-16'
+    : spacing === 'lg'
+      ? 'py-20 sm:py-28'
+      : 'py-16 sm:py-20';
+
+const hasHeader = Boolean(eyebrow || title || description);
 ---
 
-<Tag id={id} class="container-wide py-16 sm:py-24">
-  {(eyebrow || title || description) && (
-    <header class="max-w-2xl">
-      {eyebrow && <p class="text-sm font-semibold uppercase tracking-wider text-brand-600">{eyebrow}</p>}
-      {title && <h2 class="mt-2 text-3xl font-bold tracking-tight sm:text-4xl">{title}</h2>}
-      {description && <p class="mt-4 text-lg text-slate-600">{description}</p>}
-    </header>
-  )}
-  <div class="mt-10">
-    <slot />
+<Tag id={id} class:list={[toneClass]}>
+  <div class:list={['container-wide', spacingClass]}>
+    {layout === 'side' && hasHeader ? (
+      <div class="grid gap-10 lg:grid-cols-12 lg:gap-12">
+        <div class="lg:col-span-5">
+          <SectionHeader
+            eyebrow={eyebrow}
+            title={title ?? ''}
+            description={description}
+            layout="side"
+          />
+        </div>
+        <div class="lg:col-span-7">
+          <slot />
+        </div>
+      </div>
+    ) : (
+      <>
+        {hasHeader && (
+          <SectionHeader
+            eyebrow={eyebrow}
+            title={title ?? ''}
+            description={description}
+          />
+        )}
+        <div class:list={[hasHeader && 'mt-10']}>
+          <slot />
+        </div>
+      </>
+    )}
   </div>
 </Tag>

@@ -3,33 +3,47 @@ import { NAV_LINKS, SITE } from '~/consts';
 const year = new Date().getFullYear();
 ---
 
-<footer class="mt-24 border-t border-slate-100 bg-slate-50/60">
-  <div class="container-wide py-12 grid gap-10 md:grid-cols-3">
-    <div>
-      <p class="font-display text-lg font-semibold text-slate-900">{SITE.name}</p>
-      <p class="mt-2 text-sm text-slate-600 max-w-xs">{SITE.tagline}. Based remote, working with teams across Europe and North America.</p>
-      <p class="mt-4 text-sm">
-        <a href={`mailto:${SITE.email}`} class="font-medium">{SITE.email}</a>
+<footer class="mt-20 border-t border-slate-200/70 bg-sand-50/60">
+  <div class="container-wide grid gap-10 py-14 md:grid-cols-12">
+    <div class="md:col-span-5">
+      <a href="/" class="flex items-center gap-2" aria-label={`${SITE.name} — Home`}>
+        <span
+          class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 via-brand-700 to-accent-600 text-white font-bold"
+          aria-hidden="true"
+        >E</span>
+        <span class="font-display text-lg font-semibold text-ink-900">{SITE.name}</span>
+      </a>
+      <p class="mt-4 max-w-sm text-sm leading-relaxed text-slate-600">
+        {SITE.tagline}. Based remote, working with teams across Europe and North America.
       </p>
+      <p class="mt-5 text-sm">
+        <a href={`mailto:${SITE.email}`} class="font-semibold text-brand-700 hover:text-brand-800">{SITE.email}</a>
+      </p>
+      <a
+        href="/contact"
+        class="mt-5 inline-flex items-center gap-1 text-sm font-semibold text-ink-900 hover:text-brand-700"
+      >
+        Book intro call <span aria-hidden="true">→</span>
+      </a>
     </div>
 
-    <nav aria-label="Footer" class="text-sm">
-      <p class="font-semibold text-slate-900">Sitemap</p>
-      <ul class="mt-3 space-y-2">
+    <nav aria-label="Footer" class="text-sm md:col-span-3">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Sitemap</p>
+      <ul class="mt-4 space-y-2.5">
         {NAV_LINKS.map((l) => (
-          <li><a href={l.href} class="text-slate-600 hover:text-slate-900">{l.label}</a></li>
+          <li><a href={l.href} class="text-slate-600 hover:text-ink-900">{l.label}</a></li>
         ))}
       </ul>
     </nav>
 
-    <nav aria-label="Elsewhere" class="text-sm">
-      <p class="font-semibold text-slate-900">Elsewhere</p>
-      <ul class="mt-3 space-y-2">
+    <nav aria-label="Elsewhere" class="text-sm md:col-span-4">
+      <p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">Elsewhere</p>
+      <ul class="mt-4 space-y-2.5">
         {SITE.sameAs.map((href) => (
           <li>
             <a
               href={href}
-              class="text-slate-600 hover:text-slate-900"
+              class="text-slate-600 hover:text-ink-900"
               rel="me noopener"
               target="_blank"
             >
@@ -37,13 +51,13 @@ const year = new Date().getFullYear();
             </a>
           </li>
         ))}
-        <li><a href="/rss.xml" class="text-slate-600 hover:text-slate-900">RSS feed</a></li>
+        <li><a href="/rss.xml" class="text-slate-600 hover:text-ink-900">RSS feed</a></li>
       </ul>
     </nav>
   </div>
 
-  <div class="container-wide border-t border-slate-200/80 py-6 text-xs text-slate-500 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2">
+  <div class="container-wide flex flex-col items-start justify-between gap-2 border-t border-slate-200/70 py-6 text-xs text-slate-500 sm:flex-row sm:items-center">
     <p>© {year} {SITE.legalName}. All rights reserved.</p>
-    <p>Built with <a href="https://astro.build" class="underline" rel="noopener">Astro</a>.</p>
+    <p>Built with <a href="https://astro.build" class="underline hover:text-ink-900" rel="noopener">Astro</a>.</p>
   </div>
 </footer>

@@ -1,0 +1,22 @@
+---
+/**
+ * Stat — small number + label tile for hero / proof rows.
+ */
+export interface Props {
+  value: string;
+  label: string;
+  /** Optional small icon glyph (emoji or single character). */
+  icon?: string;
+}
+const { value, label, icon } = Astro.props;
+---
+
+<div class="stat">
+  {icon && (
+    <span aria-hidden="true" class="mb-2 inline-flex h-7 w-7 items-center justify-center rounded-md bg-brand-50 text-brand-700">
+      {icon}
+    </span>
+  )}
+  <p class="stat-num">{value}</p>
+  <p class="stat-label">{label}</p>
+</div>

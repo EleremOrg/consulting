@@ -28,11 +28,12 @@ export const SITE = {
   ],
 } as const;
 
+/**
+ * Primary navigation links — kept intentionally small.
+ * The "Contact" CTA is rendered as a button in Header/Footer separately
+ * and so is not included here.
+ */
 export const NAV_LINKS: ReadonlyArray<{ href: string; label: string }> = [
-  { href: '/', label: 'Home' },
   { href: '/services', label: 'Services' },
-  { href: '/work', label: 'Work' },
-  { href: '/about', label: 'About' },
-  { href: '/blog', label: 'Insights' },
-  { href: '/contact', label: 'Contact' },
+  { href: '/blog', label: 'Blog' },
 ];

@@ -8,9 +8,10 @@
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
-    "preview": "astro preview",
+    "preview": "wrangler dev",
     "astro": "astro",
-    "check": "astro check"
+    "check": "astro check",
+    "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
     "@astrojs/check": "^0.9.8",
@@ -22,6 +23,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.4",
-    "tailwindcss": "^4.2.4"
+    "tailwindcss": "^4.2.4",
+    "wrangler": "^4.85.0"
   }
 }
