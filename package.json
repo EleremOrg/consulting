@@ -10,7 +10,7 @@
     "build": "astro build",
     "preview": "wrangler dev",
     "astro": "astro",
-    "check": "astro check",
+    "check": "astro check --minimumSeverity warning",
     "deploy": "astro build && wrangler deploy"
   },
   "dependencies": {
