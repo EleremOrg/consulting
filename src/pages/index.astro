@@ -4,82 +4,160 @@ import Hero from "@components/Hero.astro";
 import Section from "@components/Section.astro";
 import { SITE } from "~/consts";
 
-// Featured (left) + supporting (right) services for the new home layout.
-const featuredService = {
-  title: "Architecture & technical due diligence",
-  summary:
-    "Deep, written assessments of your platform, codebase and delivery process — delivered in 2–4 weeks.",
-  bullets: [
-    "Prioritised risk register",
-    "Target architecture & migration roadmap",
-    "Executive-ready written report",
-  ],
-  href: "/services#architecture-review",
-};
-
-const supportingServices = [
+/* ──────────────────────────────────────────────────────────────────
+   Three pillars under the hero — TOC + Lean + value-engineering blend.
+   ────────────────────────────────────────────────────────────────── */
+const pillars = [
   {
-    title: "Embedded engineering",
-    description:
-      "Senior teams that ship the hardest parts of your roadmap with your engineers — and document it as they go.",
+    title: "Root-cause first",
+    body: "We find the binding constraint — the slow query, the synchronous handoff, the missing index — instead of optimizing what's loud.",
     accent: "from-brand-500 to-brand-700",
   },
   {
-    title: "Fractional CTO",
-    description:
-      "Hiring, architecture, delivery process and investor-grade technical comms — without the full-time hire.",
+    title: "Built to last",
+    body: "Refactors, ADRs and runbooks that compound after we leave. No throwaway demos, no over-the-wall handoffs.",
     accent: "from-accent-500 to-brand-600",
   },
   {
-    title: "Reliability & performance",
-    description:
-      "SLOs, incident response, Core Web Vitals and cost-aware scaling for products customers cannot see break.",
+    title: "Maximum return per effort",
+    body: "Outcome divided by engineering hours. Often that means less code, fewer services, fewer fires — not more.",
     accent: "from-amber-500 to-pink-500",
   },
 ];
 
+/* ──────────────────────────────────────────────────────────────────
+   Three offerings — Code · Architecture · Culture/Process.
+   Each card has a shape parallel to /services for consistency.
+   ────────────────────────────────────────────────────────────────── */
+const offerings = [
+  {
+    eyebrow: "Code",
+    title: "Codebase performance & quality",
+    summary:
+      "Your code works — but it's slow, expensive to run, hard to change, and untested where it counts. We go in and fix that.",
+    bullets: [
+      "Profile critical paths · refactor hot spots",
+      "Migrate where ROI is clear (Flask → FastAPI, sync → async, Tokio…)",
+      "Coverage where coverage actually buys risk reduction",
+    ],
+    href: "/services#code",
+    accent: "from-brand-600 via-brand-700 to-ink-900",
+    featured: true,
+  },
+  {
+    eyebrow: "Architecture",
+    title: "Architecture for scale & change",
+    summary:
+      "We help you decide the next two years of platform direction — then ship the first slice, so the plan survives contact with reality.",
+    bullets: [
+      "Independent review & risk register",
+      "Migration strategy: monolith → services, sync → async",
+      "DDD, hexagonal, strangler-fig, ADRs",
+    ],
+    href: "/services#architecture",
+    accent: "from-accent-500 to-brand-600",
+  },
+  {
+    eyebrow: "Culture & process",
+    title: "Engineering practice that compounds",
+    summary:
+      "Even great code rots in a team that ships slowly. We build the engineering practice — metrics, reviews, observability, mentoring.",
+    bullets: [
+      "DORA metrics, code review & CI workflows",
+      "Observability (OTel, Prometheus, Grafana, Loki, Tempo)",
+      "Mentoring, ADRs, postmortem ritual",
+    ],
+    href: "/services#culture",
+    accent: "from-amber-500 to-pink-500",
+  },
+];
+
+/* ──────────────────────────────────────────────────────────────────
+   Selected results — real, anonymized numbers from past engagements.
+   These appear on the home page (top wins) and the services page (full).
+   ────────────────────────────────────────────────────────────────── */
+const wins = [
+  {
+    metric: "10×",
+    label: "lower latency",
+    detail: "ML-serving microservice: 5s → <500ms via redesign and better data structures.",
+  },
+  {
+    metric: "−80%",
+    label: "memory + 6× faster",
+    detail: "ETL pipeline: 2h → 20min, memory −80% via profiling and hot-path rewrites.",
+  },
+  {
+    metric: "4×",
+    label: "throughput",
+    detail: "MySQL event store: memory −70%, CPU −20%, failure rate −45%, MTTR −65%.",
+  },
+  {
+    metric: "−50%",
+    label: "memory · −20% CPU",
+    detail: "Custom Rust + Tokio proxy network — better resource efficiency at scale.",
+  },
+  {
+    metric: "3×",
+    label: "deploy frequency",
+    detail: "E-commerce ingestion (Shopify / Woo / Presta) refactored with strangler pattern. Lead time −60%.",
+  },
+  {
+    metric: "12 → 92%",
+    label: "test coverage",
+    detail: "Across multiple services, plus AI model benchmarks (MAE, R², RMSE) for fast iteration.",
+  },
+];
+
+/* ──────────────────────────────────────────────────────────────────
+   Methodology — Find · Fix · Compound.
+   ────────────────────────────────────────────────────────────────── */
 const steps = [
   {
-    title: "Intro call",
-    body: "30 minutes, free. We listen, ask sharp questions, and tell you honestly whether we can help.",
+    title: "Find",
+    body: "We measure first — latency, cost, MTTR, lead time. The constraint reveals itself in the numbers, not the meeting.",
   },
   {
-    title: "Written proposal",
-    body: "A short, fixed-scope proposal with deliverables, timeline and a single fee — usually within 3 days.",
+    title: "Fix",
+    body: "We ship the change in your repo, with your engineers. PRs, code review, observability — same way your team works.",
   },
   {
-    title: "Kickoff",
-    body: "We meet your team, align on the first slice, and start shipping inside the first week.",
-  },
-  {
-    title: "Handover",
-    body: "Documentation, runbooks and a senior team that's measurably stronger than when we arrived.",
+    title: "Compound",
+    body: "ADRs, runbooks, dashboards. The engagement ends; the value keeps paying interest.",
   },
 ];
 
-const proofLogos = [
-  "Series B fintech",
-  "Climate SaaS",
-  "Healthtech",
-  "Devtools",
-  "Marketplace",
-  "AI infra",
+/* ──────────────────────────────────────────────────────────────────
+   Stacks we go deep on (visible competence anchor + SEO).
+   ────────────────────────────────────────────────────────────────── */
+const stacks = [
+  "Python",
+  "Rust",
+  "Postgres",
+  "MySQL",
+  "FastAPI",
+  "Tokio",
+  "OpenTelemetry",
+  "AWS",
+  "Kubernetes",
 ];
 
-// Page-specific JSON-LD: ProfessionalService helps Google understand what we do
+/* ──────────────────────────────────────────────────────────────────
+   JSON-LD: ProfessionalService.
+   ────────────────────────────────────────────────────────────────── */
 const professionalServiceLd = {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   name: SITE.name,
   description: SITE.description,
   url: SITE.url,
-  areaServed: ["Europe", "North America", "Worldwide"],
+  areaServed: "Worldwide",
   serviceType: [
-    "Software consulting",
+    "Software performance engineering",
     "Software architecture",
-    "Fractional CTO",
-    "Technical due diligence",
     "Reliability engineering",
+    "Engineering process improvement",
+    "Cloud cost optimization",
   ],
   provider: {
     "@type": "Organization",
@@ -95,58 +173,72 @@ const professionalServiceLd = {
   jsonLd={[professionalServiceLd]}
 >
   <Hero
-    eyebrow="Independent software consultancy"
-    title="Resilient software,"
-    titleAccent="shipped faster."
-    description="Elerem partners with startups and scale-ups on software architecture, hands-on engineering and technical leadership — so your product keeps shipping while your platform gets stronger."
+    eyebrow="Engineering for compounding returns"
+    title="Make engineering"
+    titleAccent="compound, not cost."
+    description="We help you pay back tech debt and implement the processes to achieve your goals for the long term."
     primaryCta={{ href: "/contact", label: "Book intro call" }}
-    secondaryCta={{ href: "/services", label: "See how we work" }}
+    secondaryCta={{ href: "/services", label: "How we work" }}
   />
 
-  {/* ── Proof strip ────────────────────────────────────────────────── */}
-  <section aria-label="Trusted by" class="border-b border-slate-200/60 bg-sand-50/60">
-    <div class="container-wide flex flex-col items-center gap-6 py-10 lg:flex-row lg:gap-10">
-      <p class="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
-        Trusted by teams · seed → Series C
-      </p>
-      <ul class="grid w-full grid-cols-2 gap-3 sm:grid-cols-3 lg:flex lg:flex-1 lg:items-center lg:justify-end lg:gap-6">
-        {
-          proofLogos.map((name) => (
-            <li class="flex items-center justify-center rounded-md bg-white/70 px-3 py-2 text-sm font-medium text-slate-500 ring-1 ring-inset ring-slate-200/70">
-              {name}
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
+  {/* ── Differentiation: tagline + three pillars ─────────────────── */}
+  <Section
+    eyebrow="How we think"
+    title="We don't patch symptoms."
+    description="We find the constraint, remove the waste, and compound the return — borrowed from lean manufacturing, the theory of constraints, and value engineering, then translated into code."
+  >
+    <ul class="grid gap-5 md:grid-cols-3">
+      {
+        pillars.map((p, i) => (
+          <li class="card group relative overflow-hidden p-6 transition-transform hover:-translate-y-0.5">
+            <div
+              aria-hidden="true"
+              class:list={[
+                "absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-to-br opacity-30 blur-2xl transition-opacity group-hover:opacity-50",
+                p.accent,
+              ]}
+            />
+            <p class="font-mono text-[11px] uppercase tracking-widest text-brand-600">
+              0{i + 1}
+            </p>
+            <h3 class="mt-2 text-lg font-semibold text-ink-900">{p.title}</h3>
+            <p class="mt-2 text-sm leading-relaxed text-slate-600">{p.body}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
 
-  {/* ── What we do: featured service + supporting cards ───────────── */}
+  {/* ── Three offerings: Code · Architecture · Culture ────────────── */}
   <Section
     eyebrow="What we do"
-    title="One philosophy, four engagement shapes"
-    description="Pragmatic engineering that moves the business forward — scoped to a specific outcome, with a fixed-fee option wherever we can."
+    title="Three places we go deep"
+    description="We work where senior IC judgement makes the biggest difference — code, architecture, and the engineering practice around them."
+    tone="sand"
   >
     <div class="grid gap-6 lg:grid-cols-12">
-      {/* Featured service — bold gradient panel */}
+      {/* Featured: Code */}
       <a
-        href={featuredService.href}
-        class="group relative col-span-12 overflow-hidden rounded-3xl bg-gradient-to-br from-brand-600 via-brand-700 to-ink-900 p-8 text-white transition-transform hover:-translate-y-0.5 sm:p-10 lg:col-span-7"
+        href={offerings[0].href}
+        class:list={[
+          "group relative col-span-12 overflow-hidden rounded-3xl bg-gradient-to-br p-8 text-white transition-transform hover:-translate-y-0.5 sm:p-10 lg:col-span-7",
+          offerings[0].accent,
+        ]}
       >
         <div aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent-400/30 blur-3xl"></div>
         <div aria-hidden="true" class="absolute -left-16 bottom-[-6rem] h-56 w-56 rounded-full bg-pink-400/20 blur-3xl"></div>
 
         <p class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur">
-          Most-requested engagement
+          {offerings[0].eyebrow}
         </p>
         <h3 class="relative mt-5 max-w-xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-          {featuredService.title}
+          {offerings[0].title}
         </h3>
-        <p class="relative mt-4 max-w-md text-white/80">{featuredService.summary}</p>
+        <p class="relative mt-4 max-w-md text-white/85">{offerings[0].summary}</p>
 
-        <ul class="relative mt-6 grid gap-2 text-sm text-white/85 sm:grid-cols-2">
+        <ul class="relative mt-6 grid gap-2 text-sm text-white/90">
           {
-            featuredService.bullets.map((b) => (
+            offerings[0].bullets.map((b) => (
               <li class="flex items-start gap-2">
                 <span aria-hidden="true" class="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent-300"></span>
                 <span>{b}</span>
@@ -156,30 +248,39 @@ const professionalServiceLd = {
         </ul>
 
         <p class="relative mt-8 inline-flex items-center gap-1 text-sm font-semibold text-white">
-          Read more
+          See how we work in code
           <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
         </p>
       </a>
 
-      {/* Supporting services — three coloured tiles */}
+      {/* Supporting: Architecture + Culture */}
       <ul class="col-span-12 grid gap-4 lg:col-span-5">
         {
-          supportingServices.map((s, i) => (
-            <li class="card group relative overflow-hidden p-6 transition-transform hover:-translate-y-0.5">
-              <div
-                aria-hidden="true"
-                class:list={[
-                  "absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br opacity-30 blur-2xl transition-opacity group-hover:opacity-50",
-                  s.accent,
-                ]}
-              ></div>
-              <p class="font-mono text-[11px] uppercase tracking-widest text-brand-600">
-                0{i + 2}
-              </p>
-              <h3 class="mt-1.5 text-lg font-semibold text-ink-900">{s.title}</h3>
-              <p class="mt-1.5 text-sm leading-relaxed text-slate-600">
-                {s.description}
-              </p>
+          offerings.slice(1).map((o) => (
+            <li>
+              <a
+                href={o.href}
+                class="card group relative block overflow-hidden p-6 transition-transform hover:-translate-y-0.5"
+              >
+                <div
+                  aria-hidden="true"
+                  class:list={[
+                    "absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br opacity-30 blur-2xl transition-opacity group-hover:opacity-50",
+                    o.accent,
+                  ]}
+                />
+                <p class="font-mono text-[11px] uppercase tracking-widest text-brand-600">
+                  {o.eyebrow}
+                </p>
+                <h3 class="mt-1.5 text-lg font-semibold text-ink-900">{o.title}</h3>
+                <p class="mt-1.5 text-sm leading-relaxed text-slate-600">
+                  {o.summary}
+                </p>
+                <p class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 group-hover:text-brand-800">
+                  Learn more
+                  <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
+                </p>
+              </a>
             </li>
           ))
         }
@@ -191,19 +292,68 @@ const professionalServiceLd = {
         href="/services"
         class="inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800"
       >
-        Explore all services <span aria-hidden="true">→</span>
+        See full service detail <span aria-hidden="true">→</span>
       </a>
     </div>
   </Section>
 
-  {/* ── Process timeline ──────────────────────────────────────────── */}
+  {/* ── Selected results — full-bleed ink band with real numbers ──── */}
+  <section class="relative overflow-hidden bg-ink-900 text-white">
+    <div aria-hidden="true" class="absolute inset-0 -z-0">
+      <div class="absolute -top-32 -left-20 h-[28rem] w-[28rem] rounded-full bg-brand-500/30 blur-3xl"></div>
+      <div class="absolute bottom-[-10rem] right-[-6rem] h-[26rem] w-[26rem] rounded-full bg-accent-500/25 blur-3xl"></div>
+    </div>
+
+    <div class="container-wide relative py-20 sm:py-24">
+      <div class="max-w-3xl">
+        <p class="eyebrow !text-accent-300">Selected results</p>
+        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
+          We commit in numbers, not adjectives.
+        </h2>
+        <p class="mt-4 text-lg text-slate-300">
+          A sample of measurable wins from past engagements — anonymized, all real.
+          References available on request.
+        </p>
+      </div>
+
+      <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+        {
+          wins.map((w, i) => (
+            <li
+              class:list={[
+                "rounded-2xl border-l-2 bg-white/5 p-6 backdrop-blur-sm",
+                i % 4 === 0
+                  ? "border-accent-400"
+                  : i % 4 === 1
+                    ? "border-brand-400"
+                    : i % 4 === 2
+                      ? "border-pink-400"
+                      : "border-amber-400",
+              ]}
+            >
+              <p class="font-display text-3xl font-bold leading-none text-white">
+                {w.metric}
+              </p>
+              <p class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">
+                {w.label}
+              </p>
+              <p class="mt-3 text-sm leading-relaxed text-slate-300">
+                {w.detail}
+              </p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  {/* ── Methodology: Find · Fix · Compound ────────────────────────── */}
   <Section
     eyebrow="How we work"
-    title="From first message to handover"
-    description="A predictable, low-friction path from intro call to a stronger team."
-    tone="sand"
+    title="Find. Fix. Compound."
+    description="A predictable loop that maps onto every engagement, whether the work lasts six weeks or six months."
   >
-    <ol class="relative grid gap-8 md:grid-cols-4 md:gap-6">
+    <ol class="relative grid gap-10 md:grid-cols-3 md:gap-6">
       {/* Connecting hairline */}
       <div
         aria-hidden="true"
@@ -218,10 +368,8 @@ const professionalServiceLd = {
                 i === 0
                   ? "bg-brand-600"
                   : i === 1
-                    ? "bg-brand-500"
-                    : i === 2
-                      ? "bg-accent-500"
-                      : "bg-ink-900",
+                    ? "bg-accent-500"
+                    : "bg-ink-900",
               ]}
             >
               0{i + 1}
@@ -234,88 +382,44 @@ const professionalServiceLd = {
     </ol>
   </Section>
 
-  {/* ── Outcomes — full-bleed ink band with quote + stats ─────────── */}
-  <section class="relative overflow-hidden bg-ink-900 text-white">
-    <div aria-hidden="true" class="absolute inset-0 -z-0">
-      <div class="absolute -top-32 -left-20 h-[28rem] w-[28rem] rounded-full bg-brand-500/30 blur-3xl"></div>
-      <div class="absolute bottom-[-10rem] right-[-6rem] h-[26rem] w-[26rem] rounded-full bg-accent-500/25 blur-3xl"></div>
-    </div>
-
-    <div class="container-wide relative py-20 sm:py-24">
-      <p class="eyebrow !text-accent-300">Outcomes</p>
-      <div class="mt-6 grid gap-12 lg:grid-cols-12 lg:gap-10">
-        {/* Big pull quote */}
-        <figure class="lg:col-span-7">
-          <blockquote class="font-display text-3xl leading-tight text-white sm:text-4xl">
-            <span class="text-accent-300">"</span>Elerem walked into a two-year
-            platform mess and, in six weeks, produced a migration plan our team
-            actually believed in — then helped us ship the first slice to
-            production.<span class="text-accent-300">"</span>
-          </blockquote>
-          <figcaption class="mt-6 flex items-center gap-3 text-sm text-slate-300">
-            <span class="inline-flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br from-brand-400 to-accent-500 font-semibold text-white">
-              VP
-            </span>
-            <span>
-              <span class="block font-semibold text-white">VP of Engineering</span>
-              <span class="text-slate-400">Series B SaaS platform</span>
-            </span>
-          </figcaption>
-        </figure>
-
-        {/* Stats */}
-        <dl class="grid grid-cols-2 gap-x-6 gap-y-8 lg:col-span-5">
-          <div class="border-l-2 border-accent-400 pl-4">
-            <dt class="text-xs font-medium uppercase tracking-wider text-slate-400">
-              Yrs senior eng (median)
-            </dt>
-            <dd class="mt-1 font-display text-3xl font-bold text-white">15+</dd>
-          </div>
-          <div class="border-l-2 border-brand-400 pl-4">
-            <dt class="text-xs font-medium uppercase tracking-wider text-slate-400">
-              Time to first prod ship
-            </dt>
-            <dd class="mt-1 font-display text-3xl font-bold text-white">≤ 6 wks</dd>
-          </div>
-          <div class="border-l-2 border-pink-400 pl-4">
-            <dt class="text-xs font-medium uppercase tracking-wider text-slate-400">
-              Stages we serve
-            </dt>
-            <dd class="mt-1 font-display text-3xl font-bold text-white">Seed → C</dd>
-          </div>
-          <div class="border-l-2 border-amber-400 pl-4">
-            <dt class="text-xs font-medium uppercase tracking-wider text-slate-400">
-              Client NPS
-            </dt>
-            <dd class="mt-1 font-display text-3xl font-bold text-white">72</dd>
-          </div>
-        </dl>
-      </div>
+  {/* ── Stacks strip — competence anchor + SEO ───────────────────── */}
+  <section aria-label="Stacks we go deep on" class="border-y border-slate-200/60 bg-sand-50/60">
+    <div class="container-wide flex flex-col items-center gap-6 py-10 lg:flex-row lg:gap-10">
+      <p class="shrink-0 text-xs font-semibold uppercase tracking-[0.18em] text-slate-500">
+        We go deep on
+      </p>
+      <ul class="flex flex-wrap items-center gap-2 lg:flex-1 lg:justify-end lg:gap-3">
+        {
+          stacks.map((s) => (
+            <li>
+              <span class="inline-flex items-center rounded-full bg-white/70 px-3 py-1.5 text-sm font-medium text-slate-600 ring-1 ring-inset ring-slate-200/70">
+                {s}
+              </span>
+            </li>
+          ))
+        }
+      </ul>
     </div>
   </section>
 
-  {/* ── CTA: Cal.com inline embed ──────────────────────────────────
-       Booking widget replaces the static CTA banner so visitors can pick a slot
-       without leaving the page. The Cal script is deferred and loaded only on
-       this page (not in BaseLayout) to keep every other route 0-JS / 0-network. */}
+  {/* ── Cal.com booking ──────────────────────────────────────────── */}
   <section id="book" class="container-wide py-20">
     <div class="mx-auto max-w-2xl text-center">
       <p class="flex justify-center"><span class="eyebrow">Book a 30-min intro call</span></p>
-      <h2 class="mt-3 h-section">Got a gnarly engineering problem? Let's talk.</h2>
+      <h2 class="mt-3 h-section">Tell us what's slowing you down.</h2>
       <p class="mt-4 text-lg text-slate-600">
-        Pick any slot below — no obligation. Or write to
+        Pick any slot — no obligation. Or write to
         <a href={`mailto:${SITE.email}`} class="font-semibold text-brand-700 hover:text-brand-800">{SITE.email}</a>.
       </p>
     </div>
 
-    {/* Cal.com inline embed mount point — no wrapper, the widget sizes itself.
+    {/* Cal.com inline embed mount point — no wrapper, sizes itself.
         min-height reserves space before load to avoid layout shift. */}
     <div
       id="my-cal-inline-30min"
       class="mt-10 w-full"
       style="min-height:560px"
     />
-
 
     <p class="mt-4 text-center text-xs text-slate-500">
       Booking powered by <a href="https://cal.com" rel="noopener" class="underline hover:text-ink-900">Cal.com</a>.
