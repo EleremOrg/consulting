@@ -4,5 +4,8 @@ Allow: /
 # Block common low-value paths if any are added later
 Disallow: /api/
 Disallow: /admin/
+# Blog hidden until first post is published
+Disallow: /blog
+Disallow: /blog/
 
 Sitemap: https://elerem.com/sitemap-index.xml

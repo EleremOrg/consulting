@@ -35,5 +35,5 @@ export const SITE = {
  */
 export const NAV_LINKS: ReadonlyArray<{ href: string; label: string }> = [
   { href: '/services', label: 'Services' },
-  { href: '/blog', label: 'Blog' },
+  // { href: '/blog', label: 'Blog' }, // hidden until first post is published
 ];
