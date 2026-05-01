@@ -6,7 +6,7 @@ const linkedin = SITE.sameAs.find((u) => u.includes('linkedin.com'));
 
 const links: ReadonlyArray<{ href: string; label: string }> = [
   { href: '/', label: 'Home' },
-  { href: '/services', label: 'Services' },
+  // { href: '/#services', label: 'Services' }, // merged into the home page
   // { href: '/blog', label: 'Blog' }, // hidden until first post is published
   { href: '/contact', label: 'Contact' },
 ];
@@ -18,7 +18,7 @@ const links: ReadonlyArray<{ href: string; label: string }> = [
     <div class="flex items-center gap-3">
       <a href="/" class="flex items-center gap-2" aria-label={`${SITE.name} — Home`}>
         <span
-          class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-gradient-to-br from-brand-500 via-brand-700 to-accent-600 text-white font-bold"
+          class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 via-brand-700 to-accent-600 text-white font-bold"
           aria-hidden="true"
         >E</span>
         <span class="font-display text-lg font-semibold text-ink-900">{SITE.name}</span>

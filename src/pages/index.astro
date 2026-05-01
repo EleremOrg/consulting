@@ -1,184 +1,52 @@
 ---
-import BaseLayout from "@layouts/BaseLayout.astro";
-import Hero from "@components/Hero.astro";
-import Section from "@components/Section.astro";
-import { SITE } from "~/consts";
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Hero from '@components/Hero.astro';
+import Section from '@components/Section.astro';
+import { SITE } from '~/consts';
+import { offerings, pillars, steps, stacks } from '~/data/site';
 
-/* ──────────────────────────────────────────────────────────────────
-   Three pillars under the hero — TOC + Lean + value-engineering blend.
-   ────────────────────────────────────────────────────────────────── */
-const pillars = [
-  {
-    title: "Root-cause first",
-    body: "We find the binding constraint — the slow query, the synchronous handoff, the missing index — instead of optimizing what's loud.",
-    accent: "from-brand-500 to-brand-700",
-  },
-  {
-    title: "Designed to compound",
-    body: "Documented decisions, repeatable practices, code your team understands. Each engagement keeps paying after it ends.",
-    accent: "from-accent-500 to-brand-600",
-  },
-  {
-    title: "Maximum return per effort",
-    body: "We measure success in outcome per engineering hour. The highest-leverage change is often a smaller one — fewer services, less code, simpler operations.",
-    accent: "from-amber-500 to-pink-500",
-  },
-];
-
-/* ──────────────────────────────────────────────────────────────────
-   Three offerings — Code · Architecture · Culture/Process.
-   Each card has a shape parallel to /services for consistency.
-   ────────────────────────────────────────────────────────────────── */
-const offerings = [
-    {
-      eyebrow: "Code",
-      title: "Code Quality & Performance",
-      summary:
-        "We improve code that works but struggles with performance, maintainability, or test coverage. Our hands-on engineering eliminates waste and strengthens your codebase.",
-      bullets: [
-        "Profile and optimize critical paths",
-        "Modernize legacy systems",
-        "Reduce risk to improve reliability and velocity",
-      ],
-      href: "/services#code",
-      accent: "from-brand-600 via-brand-700 to-ink-900",
-      featured: true,
-    },
-    {
-      eyebrow: "Architecture",
-      title: "Architecture for scale & change",
-      summary:
-        "We help you define and evolve your platform to support growth and change. Our approach combines strategic vision with pragmatic execution.",
-      bullets: [
-        "Architecture review and risk assessment",
-        "Migration planning and execution",
-        "Domain-driven, hexagonal architecture patterns, ADRs",
-      ],
-      href: "/services#architecture",
-      accent: "from-accent-500 to-brand-600",
-    },
-    {
-      eyebrow: "Engineering culture & process",
-      title: "Engineering practice that compounds",
-      summary:
-        "We help teams build engineering capabilities that improve over time. Our focus is on creating sustainable practices that compound value long after our engagement ends.",
-      bullets: [
-        "Engineering metrics and dashboards",
-        "Effective code review and CI workflows",
-        "Knowledge sharing through mentoring and documentation",
-      ],
-      href: "/services#culture",
-      accent: "from-amber-500 to-pink-500",
-    },
-];
-
-/* ──────────────────────────────────────────────────────────────────
-   Selected results — real, anonymized numbers from past engagements.
-   These appear on the home page (top wins) and the services page (full).
-   ────────────────────────────────────────────────────────────────── */
-const wins = [
-  {
-    metric: "10×",
-    label: "lower latency",
-    detail: "ML-serving microservice: 5s → <500ms via redesign and better data structures.",
-  },
-  {
-    metric: "−80%",
-    label: "memory + 6× faster",
-    detail: "ETL pipeline: 2h → 20min, memory −80% via profiling and hot-path rewrites.",
-  },
-  {
-    metric: "4×",
-    label: "throughput",
-    detail: "MySQL event store: memory −70%, CPU −20%, failure rate −45%, MTTR −65%.",
-  },
-  {
-    metric: "−50%",
-    label: "memory · −20% CPU",
-    detail: "Custom Rust + Tokio proxy network — better resource efficiency at scale.",
-  },
-  {
-    metric: "3×",
-    label: "deploy frequency",
-    detail: "E-commerce ingestion (Shopify / Woo / Presta) refactored with strangler pattern. Lead time −60%.",
-  },
-  {
-    metric: "12 → 92%",
-    label: "test coverage",
-    detail: "Across multiple services, plus AI model benchmarks (MAE, R², RMSE) for fast iteration.",
-  },
-];
-
-/* ──────────────────────────────────────────────────────────────────
-   Methodology — Find · Fix · Compound.
-   ────────────────────────────────────────────────────────────────── */
-const steps = [
-  {
-    title: "Find",
-    body: "We start with measurement — identifying bottlenecks, waste, and risk through data-driven analysis.",
-  },
-  {
-    title: "Fix",
-    body: "We implement changes directly in your codebase alongside your team, ensuring knowledge transfer and ownership.",
-  },
-  {
-    title: "Compound",
-    body: "We leave behind improved practices, documentation, and tools that continue to deliver value after our engagement.",
-  },
-];
-
-/* ──────────────────────────────────────────────────────────────────
-   Stacks we go deep on (visible competence anchor + SEO).
-   ────────────────────────────────────────────────────────────────── */
-const stacks = [
-  "Python",
-  "Rust",
-  "Postgres",
-  "MySQL",
-  "FastAPI",
-  "Tokio",
-  "OpenTelemetry",
-  "AWS",
-  "Kubernetes",
-];
-
-/* ──────────────────────────────────────────────────────────────────
-   JSON-LD: ProfessionalService.
-   ────────────────────────────────────────────────────────────────── */
+/* JSON-LD: ProfessionalService + each offering as a Service. */
 const professionalServiceLd = {
-  "@context": "https://schema.org",
-  "@type": "ProfessionalService",
+  '@context': 'https://schema.org',
+  '@type': 'ProfessionalService',
   name: SITE.name,
   description: SITE.description,
   url: SITE.url,
-  areaServed: "Worldwide",
+  areaServed: 'Worldwide',
   serviceType: [
-    "Software performance engineering",
-    "Software architecture",
-    "Reliability engineering",
-    "Engineering process improvement",
-    "Cloud cost optimization",
+    'Software performance engineering',
+    'Software architecture',
+    'Reliability engineering',
+    'Engineering process improvement',
+    'Cloud cost optimization',
   ],
-  provider: {
-    "@type": "Organization",
-    name: SITE.name,
-    url: SITE.url,
-  },
+  provider: { '@type': 'Organization', name: SITE.name, url: SITE.url },
 };
+
+const serviceLds = offerings.map((o) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Service',
+  name: o.title,
+  description: o.summary,
+  provider: { '@type': 'Organization', name: SITE.name, url: SITE.url },
+  areaServed: 'Worldwide',
+  serviceType: o.title,
+  url: `${SITE.url}/#${o.id}`,
+}));
 ---
 
 <BaseLayout
   title={SITE.name}
   description={SITE.description}
-  jsonLd={[professionalServiceLd]}
+  jsonLd={[professionalServiceLd, ...serviceLds]}
 >
   <Hero
     eyebrow="Engineering that delivers lasting value"
     title="Make engineering"
     titleAccent="compound, not cost."
-    description="We help you pay back tech debt and implement the processes to achieve your goals for the long term"
-    primaryCta={{ href: "/contact", label: "Book intro call" }}
-    secondaryCta={{ href: "/services", label: "How we work" }}
+    description="We help you pay back tech debt and implement the processes to achieve your goals for the long term."
+    primaryCta={{ href: '#book', label: 'Book intro call' }}
+    secondaryCta={{ href: '#services', label: 'How we work' }}
   />
 
   {/* ── Differentiation: tagline + three pillars ─────────────────── */}
@@ -194,7 +62,7 @@ const professionalServiceLd = {
             <div
               aria-hidden="true"
               class:list={[
-                "absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-to-br opacity-30 blur-2xl transition-opacity group-hover:opacity-50",
+                'absolute -right-12 -top-12 h-32 w-32 rounded-full bg-gradient-to-br opacity-30 blur-2xl transition-opacity group-hover:opacity-50',
                 p.accent,
               ]}
             />
@@ -209,149 +77,138 @@ const professionalServiceLd = {
     </ul>
   </Section>
 
-  {/* ── Three offerings: Code · Architecture · Culture ────────────── */}
+  {/* ── Services: merged offerings with full detail ──────────────── */}
   <Section
-    eyebrow="Our Core Expertise"
-    title="Where We Focus Our Efforts"
-    description="We concentrate on three high-leverage areas where technical excellence delivers the most enduring value: code quality, architectural soundness, and sustainable engineering practices."
+    id="services"
+    eyebrow="What we do"
+    title="Three places we go deep"
+    description="Code that runs hot. Architecture that has to evolve. The engineering practice that holds it together. Pick one — or run all three as a single engagement."
     tone="sand"
   >
-    <div class="grid gap-6 lg:grid-cols-12">
-      {/* Featured: Code */}
-      <a
-        href={offerings[0].href}
-        class:list={[
-          "group relative col-span-12 overflow-hidden rounded-3xl bg-gradient-to-br p-8 text-white transition-transform hover:-translate-y-0.5 sm:p-10 lg:col-span-7",
-          offerings[0].accent,
-        ]}
-      >
-        <div aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-accent-400/30 blur-3xl"></div>
-        <div aria-hidden="true" class="absolute -left-16 bottom-[-6rem] h-56 w-56 rounded-full bg-pink-400/20 blur-3xl"></div>
+    <div class="grid gap-12 lg:grid-cols-12">
+      {/* Sticky TOC at lg+ */}
+      <aside class="hidden lg:col-span-3 lg:block">
+        <nav aria-label="Services" class="sticky top-28">
+          <p class="text-xs font-semibold uppercase tracking-[0.14em] text-slate-500">
+            Jump to
+          </p>
+          <ul class="mt-4 space-y-2 text-sm">
+            {
+              offerings.map((o, i) => (
+                <li>
+                  <a
+                    href={`#${o.id}`}
+                    class="group flex items-baseline gap-3 text-slate-600 hover:text-ink-900"
+                  >
+                    <span class="font-mono text-[10px] tracking-widest text-slate-400 group-hover:text-brand-600">
+                      0{i + 1}
+                    </span>
+                    <span>{o.title}</span>
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+          <a
+            href="#book"
+            class="mt-8 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800"
+          >
+            Book intro call <span aria-hidden="true">→</span>
+          </a>
+        </nav>
+      </aside>
 
-        <p class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur">
-          {offerings[0].eyebrow}
-        </p>
-        <h3 class="relative mt-5 max-w-xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
-          {offerings[0].title}
-        </h3>
-        <p class="relative mt-4 max-w-md text-white/85">{offerings[0].summary}</p>
-
-        <ul class="relative mt-6 grid gap-2 text-sm text-white/90">
+      <div class="lg:col-span-9">
+        <div class="space-y-12">
           {
-            offerings[0].bullets.map((b) => (
-              <li class="flex items-start gap-2">
-                <span aria-hidden="true" class="mt-1 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-accent-300"></span>
-                <span>{b}</span>
-              </li>
-            ))
-          }
-        </ul>
-
-        <p class="relative mt-8 inline-flex items-center gap-1 text-sm font-semibold text-white">
-          See how we work in code
-          <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
-        </p>
-      </a>
-
-      {/* Supporting: Architecture + Culture */}
-      <ul class="col-span-12 grid gap-4 lg:col-span-5">
-        {
-          offerings.slice(1).map((o) => (
-            <li>
-              <a
-                href={o.href}
-                class="card group relative block overflow-hidden p-6 transition-transform hover:-translate-y-0.5"
-              >
-                <div
-                  aria-hidden="true"
+            offerings.map((o, i) => (
+              <article id={o.id} class="scroll-mt-28">
+                {/* Header strip with gradient accent */}
+                <header
                   class:list={[
-                    "absolute -right-10 -top-10 h-28 w-28 rounded-full bg-gradient-to-br opacity-30 blur-2xl transition-opacity group-hover:opacity-50",
+                    'relative overflow-hidden rounded-3xl bg-gradient-to-br p-8 text-white sm:p-10',
                     o.accent,
                   ]}
-                />
-                <p class="font-mono text-[11px] uppercase tracking-widest text-brand-600">
-                  {o.eyebrow}
-                </p>
-                <h3 class="mt-1.5 text-lg font-semibold text-ink-900">{o.title}</h3>
-                <p class="mt-1.5 text-sm leading-relaxed text-slate-600">
-                  {o.summary}
-                </p>
-                <p class="mt-3 inline-flex items-center gap-1 text-sm font-semibold text-brand-700 group-hover:text-brand-800">
-                  Learn more
-                  <span aria-hidden="true" class="transition-transform group-hover:translate-x-0.5">→</span>
-                </p>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
+                >
+                  <div aria-hidden="true" class="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-white/15 blur-3xl"></div>
+                  <div aria-hidden="true" class="absolute -left-16 bottom-[-6rem] h-56 w-56 rounded-full bg-accent-300/20 blur-3xl"></div>
 
-    <div class="mt-8">
-      <a
-        href="/services"
-        class="inline-flex items-center gap-1 text-sm font-semibold text-brand-700 hover:text-brand-800"
-      >
-        See full service detail <span aria-hidden="true">→</span>
-      </a>
+                  <p class="inline-flex items-center gap-2 rounded-full border border-white/20 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.14em] text-white/90 backdrop-blur">
+                    0{i + 1} · {o.eyebrow}
+                  </p>
+                  <h3 class="relative mt-5 max-w-2xl text-3xl font-bold leading-tight tracking-tight sm:text-4xl">
+                    {o.title}
+                  </h3>
+                  <p class="relative mt-4 max-w-xl text-white/85">{o.summary}</p>
+                </header>
+
+                {/* Two-column body: what we do · outcomes we measure */}
+                <div class="mt-6 grid gap-6 lg:grid-cols-12">
+                  <div class="card lg:col-span-7 p-6 sm:p-7">
+                    <h4 class="text-[11px] font-semibold uppercase tracking-widest text-slate-500">
+                      What we do
+                    </h4>
+                    <ul class="mt-3 space-y-2.5 text-sm leading-relaxed text-slate-700">
+                      {o.activities.map((a) => (
+                        <li class="flex gap-2">
+                          <span aria-hidden="true" class="mt-1 text-accent-500">→</span>
+                          <span>{a}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+
+                  <div class="card-tinted lg:col-span-5 p-6 sm:p-7">
+                    <h4 class="text-[11px] font-semibold uppercase tracking-widest text-slate-500">
+                      Outcomes we measure
+                    </h4>
+                    <ul class="mt-3 grid grid-cols-1 gap-1.5 text-sm text-slate-700 sm:grid-cols-2">
+                      {o.outcomes.map((m) => (
+                        <li class="flex items-start gap-2">
+                          <span aria-hidden="true" class="mt-1.5 inline-block h-1.5 w-1.5 shrink-0 rounded-full bg-brand-500"></span>
+                          <span>{m}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+
+                {/* Selected wins specific to this offering */}
+                <div class="mt-6">
+                  <h4 class="text-[11px] font-semibold uppercase tracking-widest text-slate-500">
+                    Selected wins
+                  </h4>
+                  <ul class="mt-3 grid gap-4 sm:grid-cols-2">
+                    {o.wins.map((w) => (
+                      <li class="rounded-2xl border border-slate-200/80 bg-white p-5">
+                        <div class="flex items-baseline justify-between gap-3">
+                          <p class="font-display text-2xl font-bold tracking-tight text-ink-900">
+                            {w.metric}
+                          </p>
+                          <p class="text-[11px] font-semibold uppercase tracking-wider text-slate-500">
+                            {w.label}
+                          </p>
+                        </div>
+                        <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                          {w.detail}
+                        </p>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
     </div>
   </Section>
 
-  {/* ── Selected results — full-bleed ink band with real numbers ──── */}
-  <section class="relative overflow-hidden bg-ink-900 text-white">
-    <div aria-hidden="true" class="absolute inset-0 -z-0">
-      <div class="absolute -top-32 -left-20 h-[28rem] w-[28rem] rounded-full bg-brand-500/30 blur-3xl"></div>
-      <div class="absolute bottom-[-10rem] right-[-6rem] h-[26rem] w-[26rem] rounded-full bg-accent-500/25 blur-3xl"></div>
-    </div>
-
-    <div class="container-wide relative py-20 sm:py-24">
-      <div class="max-w-3xl">
-        <p class="eyebrow !text-accent-300">Selected results</p>
-        <h2 class="mt-3 font-display text-3xl font-bold tracking-tight text-white sm:text-4xl">
-          We commit in numbers, not adjectives.
-        </h2>
-        <p class="mt-4 text-lg text-slate-300">
-          A sample of measurable wins from past engagements — anonymized, all real.
-          References available on request.
-        </p>
-      </div>
-
-      <ul class="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {
-          wins.map((w, i) => (
-            <li
-              class:list={[
-                "rounded-2xl border-l-2 bg-white/5 p-6 backdrop-blur-sm",
-                i % 4 === 0
-                  ? "border-accent-400"
-                  : i % 4 === 1
-                    ? "border-brand-400"
-                    : i % 4 === 2
-                      ? "border-pink-400"
-                      : "border-amber-400",
-              ]}
-            >
-              <p class="font-display text-3xl font-bold leading-none text-white">
-                {w.metric}
-              </p>
-              <p class="mt-1 text-xs font-medium uppercase tracking-wider text-slate-400">
-                {w.label}
-              </p>
-              <p class="mt-3 text-sm leading-relaxed text-slate-300">
-                {w.detail}
-              </p>
-            </li>
-          ))
-        }
-      </ul>
-    </div>
-  </section>
-
   {/* ── Methodology: Find · Fix · Compound ────────────────────────── */}
   <Section
-    eyebrow="Our Proven Approach"
+    eyebrow="Our approach"
     title="Find. Fix. Compound."
-    description="Our predictable three-step methodology delivers consistent results across all engagements, from short-term fixes to long-term transformations."
+    description="A predictable three-step methodology that delivers consistent results — from short-term fixes to long-term transformations."
   >
     <ol class="relative grid gap-10 md:grid-cols-3 md:gap-6">
       {/* Connecting hairline */}
@@ -364,12 +221,8 @@ const professionalServiceLd = {
           <li class="relative">
             <span
               class:list={[
-                "relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white shadow-sm",
-                i === 0
-                  ? "bg-brand-600"
-                  : i === 1
-                    ? "bg-accent-500"
-                    : "bg-ink-900",
+                'relative z-10 inline-flex h-8 w-8 items-center justify-center rounded-full text-xs font-semibold text-white shadow-sm',
+                i === 0 ? 'bg-brand-600' : i === 1 ? 'bg-accent-500' : 'bg-ink-900',
               ]}
             >
               0{i + 1}
@@ -403,7 +256,7 @@ const professionalServiceLd = {
   </section>
 
   {/* ── Cal.com booking ──────────────────────────────────────────── */}
-  <section id="book" class="container-wide py-20">
+  <section id="book" class="container-wide py-20 scroll-mt-28">
     <div class="mx-auto max-w-2xl text-center">
       <p class="flex justify-center"><span class="eyebrow">Book a 30-min intro call</span></p>
       <h2 class="mt-3 h-section">Tell us what's slowing you down.</h2>
