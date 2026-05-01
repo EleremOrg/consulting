@@ -1,6 +1,6 @@
-import { defineCollection, z } from 'astro:content';
+import { defineCollection } from 'astro:content';
 import { glob } from 'astro/loaders';
-
+import { z } from 'astro/zod'
 /**
  * Blog content collection with an SEO-focused schema:
  *  - title/description drive <title> and meta description

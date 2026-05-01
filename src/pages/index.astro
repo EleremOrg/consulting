@@ -14,13 +14,13 @@ const pillars = [
     accent: "from-brand-500 to-brand-700",
   },
   {
-    title: "Built to last",
-    body: "Refactors, ADRs and runbooks that compound after we leave. No throwaway demos, no over-the-wall handoffs.",
+    title: "Designed to compound",
+    body: "Documented decisions, repeatable practices, code your team understands. Each engagement keeps paying after it ends.",
     accent: "from-accent-500 to-brand-600",
   },
   {
     title: "Maximum return per effort",
-    body: "Outcome divided by engineering hours. Often that means less code, fewer services, fewer fires — not more.",
+    body: "We measure success in outcome per engineering hour. The highest-leverage change is often a smaller one — fewer services, less code, simpler operations.",
     accent: "from-amber-500 to-pink-500",
   },
 ];
@@ -30,46 +30,46 @@ const pillars = [
    Each card has a shape parallel to /services for consistency.
    ────────────────────────────────────────────────────────────────── */
 const offerings = [
-  {
-    eyebrow: "Code",
-    title: "Codebase performance & quality",
-    summary:
-      "Your code works — but it's slow, expensive to run, hard to change, and untested where it counts. We go in and fix that.",
-    bullets: [
-      "Profile critical paths · refactor hot spots",
-      "Migrate where ROI is clear (Flask → FastAPI, sync → async, Tokio…)",
-      "Coverage where coverage actually buys risk reduction",
-    ],
-    href: "/services#code",
-    accent: "from-brand-600 via-brand-700 to-ink-900",
-    featured: true,
-  },
-  {
-    eyebrow: "Architecture",
-    title: "Architecture for scale & change",
-    summary:
-      "We help you decide the next two years of platform direction — then ship the first slice, so the plan survives contact with reality.",
-    bullets: [
-      "Independent review & risk register",
-      "Migration strategy: monolith → services, sync → async",
-      "DDD, hexagonal, strangler-fig, ADRs",
-    ],
-    href: "/services#architecture",
-    accent: "from-accent-500 to-brand-600",
-  },
-  {
-    eyebrow: "Culture & process",
-    title: "Engineering practice that compounds",
-    summary:
-      "Even great code rots in a team that ships slowly. We build the engineering practice — metrics, reviews, observability, mentoring.",
-    bullets: [
-      "DORA metrics, code review & CI workflows",
-      "Observability (OTel, Prometheus, Grafana, Loki, Tempo)",
-      "Mentoring, ADRs, postmortem ritual",
-    ],
-    href: "/services#culture",
-    accent: "from-amber-500 to-pink-500",
-  },
+    {
+      eyebrow: "Code",
+      title: "Code Quality & Performance",
+      summary:
+        "We improve code that works but struggles with performance, maintainability, or test coverage. Our hands-on engineering eliminates waste and strengthens your codebase.",
+      bullets: [
+        "Profile and optimize critical paths",
+        "Modernize legacy systems",
+        "Reduce risk to improve reliability and velocity",
+      ],
+      href: "/services#code",
+      accent: "from-brand-600 via-brand-700 to-ink-900",
+      featured: true,
+    },
+    {
+      eyebrow: "Architecture",
+      title: "Architecture for scale & change",
+      summary:
+        "We help you define and evolve your platform to support growth and change. Our approach combines strategic vision with pragmatic execution.",
+      bullets: [
+        "Architecture review and risk assessment",
+        "Migration planning and execution",
+        "Domain-driven, hexagonal architecture patterns, ADRs",
+      ],
+      href: "/services#architecture",
+      accent: "from-accent-500 to-brand-600",
+    },
+    {
+      eyebrow: "Engineering culture & process",
+      title: "Engineering practice that compounds",
+      summary:
+        "We help teams build engineering capabilities that improve over time. Our focus is on creating sustainable practices that compound value long after our engagement ends.",
+      bullets: [
+        "Engineering metrics and dashboards",
+        "Effective code review and CI workflows",
+        "Knowledge sharing through mentoring and documentation",
+      ],
+      href: "/services#culture",
+      accent: "from-amber-500 to-pink-500",
+    },
 ];
 
 /* ──────────────────────────────────────────────────────────────────
@@ -115,15 +115,15 @@ const wins = [
 const steps = [
   {
     title: "Find",
-    body: "We measure first — latency, cost, MTTR, lead time. The constraint reveals itself in the numbers, not the meeting.",
+    body: "We start with measurement — identifying bottlenecks, waste, and risk through data-driven analysis.",
   },
   {
     title: "Fix",
-    body: "We ship the change in your repo, with your engineers. PRs, code review, observability — same way your team works.",
+    body: "We implement changes directly in your codebase alongside your team, ensuring knowledge transfer and ownership.",
   },
   {
     title: "Compound",
-    body: "ADRs, runbooks, dashboards. The engagement ends; the value keeps paying interest.",
+    body: "We leave behind improved practices, documentation, and tools that continue to deliver value after our engagement.",
   },
 ];
 
@@ -173,10 +173,10 @@ const professionalServiceLd = {
   jsonLd={[professionalServiceLd]}
 >
   <Hero
-    eyebrow="Engineering for compounding returns"
+    eyebrow="Engineering that delivers lasting value"
     title="Make engineering"
     titleAccent="compound, not cost."
-    description="We help you pay back tech debt and implement the processes to achieve your goals for the long term."
+    description="We help you pay back tech debt and implement the processes to achieve your goals for the long term"
     primaryCta={{ href: "/contact", label: "Book intro call" }}
     secondaryCta={{ href: "/services", label: "How we work" }}
   />
@@ -184,8 +184,8 @@ const professionalServiceLd = {
   {/* ── Differentiation: tagline + three pillars ─────────────────── */}
   <Section
     eyebrow="How we think"
-    title="We don't patch symptoms."
-    description="We find the constraint, remove the waste, and compound the return — borrowed from lean manufacturing, the theory of constraints, and value engineering, then translated into code."
+    title="Less effort, more throughput"
+    description="A small set of changes drives most of the gain in any system. Our work is finding them, shipping them, and giving your team the method to find the next ones on their own."
   >
     <ul class="grid gap-5 md:grid-cols-3">
       {
@@ -211,9 +211,9 @@ const professionalServiceLd = {
 
   {/* ── Three offerings: Code · Architecture · Culture ────────────── */}
   <Section
-    eyebrow="What we do"
-    title="Three places we go deep"
-    description="We work where senior IC judgement makes the biggest difference — code, architecture, and the engineering practice around them."
+    eyebrow="Our Core Expertise"
+    title="Where We Focus Our Efforts"
+    description="We concentrate on three high-leverage areas where technical excellence delivers the most enduring value: code quality, architectural soundness, and sustainable engineering practices."
     tone="sand"
   >
     <div class="grid gap-6 lg:grid-cols-12">
@@ -349,9 +349,9 @@ const professionalServiceLd = {
 
   {/* ── Methodology: Find · Fix · Compound ────────────────────────── */}
   <Section
-    eyebrow="How we work"
+    eyebrow="Our Proven Approach"
     title="Find. Fix. Compound."
-    description="A predictable loop that maps onto every engagement, whether the work lasts six weeks or six months."
+    description="Our predictable three-step methodology delivers consistent results across all engagements, from short-term fixes to long-term transformations."
   >
     <ol class="relative grid gap-10 md:grid-cols-3 md:gap-6">
       {/* Connecting hairline */}

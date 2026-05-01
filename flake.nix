@@ -4,7 +4,6 @@
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-utils.url = "github:numtide/flake-utils";
-    sce.url = "github:crocoder-dev/shared-context-engineering";
   };
 
   outputs =
@@ -23,7 +22,6 @@
       {
         devShells.default = pkgs.mkShell {
           buildInputs = with pkgs; [
-            sce.packages.${system}.default
             nodejs_22
             nodePackages.pnpm
           ];
