@@ -10,31 +10,52 @@ on:
   pull_request:
     types: [opened, reopened, synchronize]
 
+# Cancel in-flight runs for the same ref when a new push lands.
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   build:
-    name: Type-check & build
+    name: Type-check & build (Nix)
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          run_install: false
+      # Install Nix with flakes enabled. Determinate's installer is fast and
+      # turns on the right experimental features by default.
+      - name: Install Nix
+        uses: DeterminateSystems/nix-installer-action@main
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      # Free Nix-store cache shared across runs of this repo.
+      - name: Magic Nix Cache
+        uses: DeterminateSystems/magic-nix-cache-action@main
+
+      # Pre-warm the dev shell so subsequent `nix develop -c …` invocations
+      # don't pay the realisation cost.
+      - name: Build dev shell
+        run: nix develop --command true
+
+      # Cache pnpm store across runs (much smaller than Nix-cached pnpm).
+      - name: Get pnpm store path
+        id: pnpm-store
+        run: echo "path=$(nix develop --command pnpm store path)" >> "$GITHUB_OUTPUT"
+
+      - name: Cache pnpm store
+        uses: actions/cache@v4
         with:
-          node-version: 22
-          cache: pnpm
+          path: ${{ steps.pnpm-store.outputs.path }}
+          key: pnpm-${{ runner.os }}-${{ hashFiles('pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: nix develop --command pnpm install --frozen-lockfile
 
       - name: Astro check (types & content collections)
-        run: pnpm check
+        run: nix develop --command pnpm check
 
       - name: Build
-        run: pnpm build
+        run: nix develop --command pnpm build
