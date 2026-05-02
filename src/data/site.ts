@@ -77,28 +77,24 @@ export const offerings: ReadonlyArray<Offering> = [
     ],
     wins: [
       {
-        metric: '10×',
-        label: 'lower latency',
-        detail:
-          'ML-serving microservice: 5s → <500ms via redesign and better data structures.',
+        metric: '10× faster',
+        label: 'API response time',
+        detail: 'ML microservice: 5s → <500ms via data structure redesign.',
       },
       {
-        metric: '−80% memory',
-        label: 'ETL 2h → 20min',
-        detail:
-          'Profiled and rewrote hot sections of an ETL pipeline; major resource and runtime reductions.',
+        metric: '−80% runtime',
+        label: 'ETL pipeline',
+        detail: 'Profiled and rewrote hot paths; 2h → 20min with major resource reductions.',
       },
       {
         metric: '4× throughput',
-        label: 'MySQL event store',
-        detail:
-          'Memory −70%, CPU −20%, failure rate −45%, via query/index work.',
+        label: 'Database performance',
+        detail: 'MySQL event store: −70% memory, −20% CPU, −45% failure rate via query optimization.',
       },
       {
-        metric: '−50% memory',
+        metric: '−50% resources',
         label: 'Rust proxy',
-        detail:
-          'Custom binary protocol; CPU −20%, memory −50% — better resource efficiency at scale.',
+        detail: 'Custom binary protocol reduced CPU −20%, memory −50% at scale.',
       },
     ],
     accent: 'from-brand-600 via-brand-700 to-ink-900',
@@ -123,16 +119,14 @@ export const offerings: ReadonlyArray<Offering> = [
     ],
     wins: [
       {
-        metric: '4 services',
-        label: 'monolith → DDD',
-        detail:
-          'Refactored a Python distributed monolith into four hexagonal microservices with DDD; replaced Flask with FastAPI + Pydantic.',
+        metric: '4 microservices',
+        label: 'Monolith → DDD',
+        detail: 'Refactored Python monolith into hexagonal microservices; replaced Flask with FastAPI + Pydantic.',
       },
       {
-        metric: '3× deploy freq',
-        label: 'lead time −60%',
-        detail:
-          'E-commerce ingestion (Shopify / WooCommerce / PrestaShop) refactored; 10× throughput, 10× lower resource usage.',
+        metric: '3× faster delivery',
+        label: 'Deploy frequency',
+        detail: 'E-commerce ingestion refactored: 10× throughput, 10× lower resource usage, −60% lead time.',
       },
     ],
     accent: 'from-accent-500 via-accent-700 to-ink-900',
@@ -159,27 +153,23 @@ export const offerings: ReadonlyArray<Offering> = [
     wins: [
       {
         metric: '92% coverage',
-        label: 'from 12%',
-        detail:
-          'Across multiple services, plus AI model benchmarks (MAE, R², RMSE) for fast iteration on model changes.',
+        label: 'Test reliability',
+        detail: 'From 12% to 92% across services; added AI model benchmarks for fast iteration.',
       },
       {
-        metric: 'Observability',
-        label: 'distributed tracing',
-        detail:
-          'OpenTelemetry + Tempo + Prometheus/Grafana + Loki across a distributed system — measurable improvements in monitoring, debugging and reliability.',
+        metric: 'Full observability',
+        label: 'Distributed tracing',
+        detail: 'OpenTelemetry + Tempo + Prometheus/Grafana + Loki; measurable reliability improvements.',
       },
       {
-        metric: 'Mentoring',
-        label: 'TDD',
-        detail:
-          'Mentoring and coaching to help engineers adopt TDD and refactoring practices for more reliable implementations.',
+        metric: 'TDD adoption',
+        label: 'Team mentoring',
+        detail: 'Coaching engineers on TDD and refactoring for more reliable implementations.',
       },
       {
-        metric: 'Reproducibility',
-        label: 'nix environments',
-        detail:
-          'Standardized environments for local development, CI, and production deployments with Nix.',
+        metric: 'Reproducible builds',
+        label: 'Nix environments',
+        detail: 'Standardized local dev, CI, and production deployments with Nix.',
       },
     ],
     accent: 'from-amber-500 via-pink-500 to-brand-700',

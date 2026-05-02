@@ -6,10 +6,8 @@
   "description": "Elerem — Independent software consultancy website built with Astro.",
   "scripts": {
     "dev": "astro dev",
-    "start": "astro dev",
     "build": "astro build",
-    "preview": "wrangler dev",
-    "astro": "astro",
+    "preview": "astro build && wrangler dev",
     "check": "astro check --minimumSeverity warning",
     "deploy": "astro build && wrangler deploy"
   },
