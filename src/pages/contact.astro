@@ -21,60 +21,69 @@ const contactLd = {
   title="Contact"
   description={`Start a conversation with ${SITE.name}. Tell us about your engineering challenge and we'll come back within one business day.`}
   jsonLd={[contactLd]}
->
-  {/* ── Contact form ──────────────────────────────────────────────── */}
-  <Section
-    eyebrow="Contact"
-    title="Let's talk about your engineering challenge"
-    description="Tell us a little about what you're working on. We reply within one business day."
   >
-    <form
-      name="contact"
-      method="POST"
-      action="https://formspree.io/f/your-form-id"
-      class="card mx-auto max-w-2xl space-y-5 p-6 sm:p-7"
+    {/* ── Contact form ──────────────────────────────────────────────── */}
+    <Section
+      eyebrow="Contact"
+      title="Let's talk about your engineering challenge"
+      description="Tell us a little about what you're working on."
     >
-      <div class="grid gap-5 sm:grid-cols-2">
-        <div>
-          <label for="name" class="block text-sm font-medium text-ink-900">Your name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            required
-            autocomplete="name"
-            class="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm transition-colors focus:border-brand-500 focus:ring-brand-500"
-          />
+      <div data-fs-success class="text-sm text-center text-green-600 mb-4">Thanks for your submission!</div>
+      <div data-fs-error class="text-sm text-center text-red-500 mb-4">Oops! There was a problem submitting your form.</div>
+      <form
+        name="contact"
+        method="POST"
+        action="https://formspree.io/f/mpqbwvqj"
+        class="card mx-auto max-w-2xl space-y-5 p-6 sm:p-7"
+        id="contact-form"
+      >
+        <div class="grid gap-5 sm:grid-cols-2">
+          <div>
+            <label for="name" class="block text-sm font-medium text-ink-900">Your name</label>
+            <input
+              id="name"
+              name="name"
+              type="text"
+              required
+              autocomplete="name"
+              data-fs-field
+              class="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm transition-colors focus:border-brand-500 focus:ring-brand-500"
+            />
+            <span data-fs-error="name" class="mt-1 text-sm text-red-500"></span>
+          </div>
+          <div>
+            <label for="email" class="block text-sm font-medium text-ink-900">Work email</label>
+            <input
+              id="email"
+              name="email"
+              type="email"
+              required
+              autocomplete="email"
+              data-fs-field
+              class="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm transition-colors focus:border-brand-500 focus:ring-brand-500"
+            />
+            <span data-fs-error="email" class="mt-1 text-sm text-red-500"></span>
+          </div>
         </div>
         <div>
-          <label for="email" class="block text-sm font-medium text-ink-900">Work email</label>
-          <input
-            id="email"
-            name="email"
-            type="email"
+          <label for="message" class="block text-sm font-medium text-ink-900">How can we help?</label>
+          <textarea
+            id="message"
+            name="message"
+            rows="5"
             required
-            autocomplete="email"
+            placeholder="A sentence or two on the context is plenty."
+            data-fs-field
             class="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm transition-colors focus:border-brand-500 focus:ring-brand-500"
-          />
+          ></textarea>
+          <span data-fs-error="message" class="mt-1 text-sm text-red-500"></span>
         </div>
-      </div>
-      <div>
-        <label for="message" class="block text-sm font-medium text-ink-900">How can we help?</label>
-        <textarea
-          id="message"
-          name="message"
-          rows="5"
-          required
-          placeholder="A sentence or two on the context is plenty."
-          class="mt-1.5 block w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-ink-900 shadow-sm transition-colors focus:border-brand-500 focus:ring-brand-500"
-        ></textarea>
-      </div>
-      <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
-        <button type="submit" class="btn-primary w-full sm:w-auto">Send message</button>
-        <p class="text-xs text-slate-500">No marketing, ever. We reply within 1 business day.</p>
-      </div>
-    </form>
-  </Section>
+        <div class="flex flex-wrap items-center justify-between gap-3 pt-2">
+          <button type="submit" class="btn-primary w-full sm:w-auto" data-fs-submit-btn>Send message</button>
+          <p class="text-xs text-slate-500">We reply within 1 business day.</p>
+        </div>
+      </form>
+    </Section>
 
   {/* ── Cal.com inline embed (same as home page) ──────────────────── */}
   <section id="book" class="container-wide pb-20">
@@ -94,9 +103,7 @@ const contactLd = {
     />
   </section>
 
-  {/* Cal.com loader. is:inline emits the snippet verbatim (Cal's IIFE expects to run as-is).
-      requestIdleCallback defers the network call for embed.js until the browser is idle,
-      so first paint / LCP / INP are not affected for users who never reach this section. */}
+  {/* Cal.com loader */}
   <script is:inline defer>
     (function () {
       function loadCal() {
@@ -141,4 +148,13 @@ const contactLd = {
       }
     })();
   </script>
+
+  {/* Formspree AJAX — handles reCAPTCHA v3, AJAX, errors, success automatically */}
+  <script is:inline>
+    window.formspree = window.formspree || function () {
+      (formspree.q = formspree.q || []).push(arguments);
+    };
+    formspree('initForm', { formElement: '#contact-form', formId: 'mpqbwvqj' });
+  </script>
+  <script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 </BaseLayout>

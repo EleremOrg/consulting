@@ -101,3 +101,9 @@ Your content here…
 
 The content collection schema (`src/content.config.ts`) will fail the build
 if SEO-critical fields are missing or malformed.
+
+## Push new release
+```bash
+git tag v1.2.3
+git push origin v1.2.3
+```

@@ -92,11 +92,11 @@ export const offerings: ReadonlyArray<Offering> = [
         metric: '4× throughput',
         label: 'MySQL event store',
         detail:
-          'Memory −70%, CPU −20%, failure rate −45%, MTTR −65% via query/index work and SRE practice.',
+          'Memory −70%, CPU −20%, failure rate −45%, via query/index work.',
       },
       {
         metric: '−50% memory',
-        label: 'Rust + Tokio proxy',
+        label: 'Rust proxy',
         detail:
           'Custom binary protocol; CPU −20%, memory −50% — better resource efficiency at scale.',
       },
@@ -132,7 +132,7 @@ export const offerings: ReadonlyArray<Offering> = [
         metric: '3× deploy freq',
         label: 'lead time −60%',
         detail:
-          'E-commerce ingestion (Shopify / WooCommerce / PrestaShop) refactored with the strangler pattern; 10× throughput, 10× lower resource usage.',
+          'E-commerce ingestion (Shopify / WooCommerce / PrestaShop) refactored; 10× throughput, 10× lower resource usage.',
       },
     ],
     accent: 'from-accent-500 via-accent-700 to-ink-900',
@@ -164,16 +164,22 @@ export const offerings: ReadonlyArray<Offering> = [
           'Across multiple services, plus AI model benchmarks (MAE, R², RMSE) for fast iteration on model changes.',
       },
       {
-        metric: 'OTel rollout',
+        metric: 'Observability',
         label: 'distributed tracing',
         detail:
           'OpenTelemetry + Tempo + Prometheus/Grafana + Loki across a distributed system — measurable improvements in monitoring, debugging and reliability.',
       },
       {
-        metric: 'MTTR −65%',
-        label: 'SRE practice',
+        metric: 'Mentoring',
+        label: 'TDD',
         detail:
-          'Reduced incident time-to-recover via secure deployment practices, runbooks and 90% test coverage on critical paths.',
+          'Mentoring and coaching to help engineers adopt TDD and refactoring practices for more reliable implementations.',
+      },
+      {
+        metric: 'Reproducibility',
+        label: 'nix environments',
+        detail:
+          'Standardized environments for local development, CI, and production deployments with Nix.',
       },
     ],
     accent: 'from-amber-500 via-pink-500 to-brand-700',
