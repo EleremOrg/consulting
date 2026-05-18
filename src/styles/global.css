@@ -5,36 +5,39 @@
 
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* ──────────────────────────────────────────────────────────────────
-   Design tokens
-   Palette: electric indigo (brand) + teal (accent) + sand (surface)
-   Inspired by Stripe/Linear — clean, scannable, B2B-trustworthy.
-   ────────────────────────────────────────────────────────────────── */
-@theme {
-  /* Brand — electric indigo */
-  --color-brand-50:  #f1f1fb;
-  --color-brand-100: #e3e3f7;
-  --color-brand-200: #c7c7ef;
-  --color-brand-300: #a3a3e3;
-  --color-brand-400: #7e7ed8;
-  --color-brand-500: #5b5bd6;
-  --color-brand-600: #4f46d4;
-  --color-brand-700: #3f36b8;
-  --color-brand-800: #312a8f;
-  --color-brand-900: #221d63;
-  --color-brand-950: #14114a;
+/* ─────────────────────────────────────────────────────────────────
+   Design tokens — v2 (lime + ink)
+   Palette: black/charcoal (brand) + neon lime (accent) + sand (surface).
+   Matches the leaf-E mark. Editorial, industrial, low-noise.
 
-  /* Accent — teal */
-  --color-accent-50:  #ecfeff;
-  --color-accent-100: #cffafe;
-  --color-accent-200: #a5f3fc;
-  --color-accent-300: #67e8f9;
-  --color-accent-400: #22d3ee;
-  --color-accent-500: #0fb5ba;
-  --color-accent-600: #0e9ba0;
-  --color-accent-700: #117a82;
-  --color-accent-800: #155e64;
-  --color-accent-900: #164e54;
+   Token names (brand-* and accent-*) are unchanged on purpose: every
+   existing utility class keeps working and just renders in the new scale.
+   ───────────────────────────────────────────────────────────────── */
+@theme {
+  /* Brand — ink / charcoal. Pure neutral so the lime accent can sing. */
+  --color-brand-50:  #f6f6f6;
+  --color-brand-100: #ebebeb;
+  --color-brand-200: #d4d4d4;
+  --color-brand-300: #a8a8a8;
+  --color-brand-400: #6b6b6b;
+  --color-brand-500: #404040;
+  --color-brand-600: #262626;
+  --color-brand-700: #171717;
+  --color-brand-800: #0d0d0d;
+  --color-brand-900: #050505;
+  --color-brand-950: #000000;
+
+  /* Accent — neon lime, anchored on #caff00 (the logo green). */
+  --color-accent-50:  #f8ffd9;
+  --color-accent-100: #f0ffaa;
+  --color-accent-200: #e6ff7d;
+  --color-accent-300: #d8ff45;
+  --color-accent-400: #caff00;
+  --color-accent-500: #b4e600;
+  --color-accent-600: #95bf00;
+  --color-accent-700: #779600;
+  --color-accent-800: #5a7100;
+  --color-accent-900: #3f5000;
 
   /* Sand — warm neutral surface for alternating sections */
   --color-sand-50:  #faf7f2;
@@ -68,12 +71,14 @@
     letter-spacing: -0.02em;
   }
 
+  /* Default link colour. Components that need a CTA appearance override
+     this with their own classes (.btn-primary, header .cta, etc.). */
   a {
-    @apply text-brand-600;
+    @apply text-brand-900;
   }
 
   ::selection {
-    background: var(--color-brand-200);
+    background: var(--color-accent-300);
     color: var(--color-brand-900);
   }
 
@@ -86,7 +91,7 @@
   }
 
   :focus-visible {
-    @apply outline-none ring-2 ring-brand-500 ring-offset-2 ring-offset-white rounded;
+    @apply outline-none ring-2 ring-accent-400 ring-offset-2 ring-offset-white rounded;
   }
 }
 
@@ -133,13 +138,14 @@
     @apply rounded-2xl border border-sand-200/70 bg-sand-50;
   }
 
-  /* Eyebrow label */
+  /* Eyebrow label — small uppercase intro lines above section headings.
+     Text stays ink-coloured; the dot is lime so it carries the brand pop. */
   .eyebrow {
-    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-700;
+    @apply inline-flex items-center gap-2 text-xs font-semibold uppercase tracking-[0.14em] text-brand-900;
   }
   .eyebrow::before {
     content: "";
-    @apply inline-block h-1.5 w-1.5 rounded-full bg-brand-500;
+    @apply inline-block h-1.5 w-1.5 rounded-full bg-accent-400;
   }
 
   /* Section heading scale */
@@ -179,9 +185,10 @@
     background-size: 56px 56px;
   }
 
-  /* Gradient text used sparingly for emphasis */
+  /* Gradient text used sparingly for emphasis. Pairs ink with the lime
+     accent so highlighted words echo the brand mark. */
   .text-gradient-brand {
-    background: linear-gradient(110deg, var(--color-brand-700), var(--color-accent-600));
+    background: linear-gradient(110deg, var(--color-brand-900), var(--color-accent-500));
     -webkit-background-clip: text;
     background-clip: text;
     color: transparent;

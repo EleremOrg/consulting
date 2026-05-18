@@ -16,12 +16,6 @@ export interface Pillar {
   accent: string;
 }
 
-export interface Win {
-  metric: string;
-  label: string;
-  detail: string;
-}
-
 export interface Offering {
   id: string;
   eyebrow: string;
@@ -29,7 +23,6 @@ export interface Offering {
   summary: string;
   activities: ReadonlyArray<string>;
   outcomes: ReadonlyArray<string>;
-  wins: ReadonlyArray<Win>;
   accent: string;
 }
 
@@ -38,158 +31,87 @@ export interface Step {
   body: string;
 }
 
-export const pillars: ReadonlyArray<Pillar> = [
+export const steps: ReadonlyArray<Step> = [
   {
-    title: 'Root-cause first',
-    body: "We find the binding constraint — the slow query, the synchronous handoff, the missing index — instead of optimizing what's loud.",
-    accent: 'from-brand-500 to-brand-700',
+    title: 'Find the constraint',
+    body: 'Every system has bottlenecks that govern its throughput. Elerem finds yours, measures their impact, and clears them.',
+
   },
   {
-    title: 'Designed to compound',
-    body: 'Documented decisions, repeatable practices, code your team understands. Each engagement keeps paying after it ends.',
-    accent: 'from-accent-500 to-brand-600',
+    title: 'Standardize the flow',
+    body: 'Elerem helps you implement practices and tooling that keep the constraint from shifting back, turning an intervention into a new baseline.',
+
   },
   {
-    title: 'Maximum return per effort',
-    body: 'We measure success in outcome per engineering hour. The highest-leverage change is often a smaller one — fewer services, less code, simpler operations.',
-    accent: 'from-amber-500 to-pink-500',
+    title: 'Compound the throughput',
+    body: 'Elerem hands your team the framework to keep finding and elevating each successive bottleneck.',
+
   },
 ];
 
 export const offerings: ReadonlyArray<Offering> = [
   {
-    id: 'code',
-    eyebrow: 'Code',
-    title: 'Code Quality & Performance',
+    id: 'delivery',
+    eyebrow: 'Delivery Flow',
+    title: 'Remove the bottlenecks slowing delivery',
     summary:
-      'Hands-on work in your codebase to cut latency, lower cloud spend, and make changes safer to ship.',
+      'Delivery slows down long before teams understand why. Fragile releases, coordination overhead, and unclear constraints quietly reduce throughput. Restore flow across engineering so product teams can ship consistently without increasing operational risk.',
     activities: [
-      'Profile and optimize critical execution paths',
-      'Modernize legacy systems for better performance and maintainability',
-      'Implement meaningful testing strategies that reduce risk',
-      'Add production observability to validate improvements',
+      'Identify delivery bottlenecks across architecture, tooling, and team workflows',
+      'Reduce deployment friction with reliable CI/CD and testing strategies',
+      'Optimize critical systems to improve responsiveness and operational efficiency',
+      'Add observability and feedback loops that support faster decision making',
     ],
     outcomes: [
-      'System latency and response times',
-      'Resource utilization and cloud costs',
-      'Deployment frequency and reliability',
-      'Code maintainability and modularity',
+      'Faster lead time for changes',
+      'More predictable releases',
+      'Reduced operational overhead',
+      'Higher engineering throughput',
     ],
-    wins: [
-      {
-        metric: '10× faster',
-        label: 'API response time',
-        detail: 'ML microservice: 5s → <500ms via data structure redesign.',
-      },
-      {
-        metric: '−80% runtime',
-        label: 'ETL pipeline',
-        detail: 'Profiled and rewrote hot paths; 2h → 20min with major resource reductions.',
-      },
-      {
-        metric: '4× throughput',
-        label: 'Database performance',
-        detail: 'MySQL event store: −70% memory, −20% CPU, −45% failure rate via query optimization.',
-      },
-      {
-        metric: '−50% resources',
-        label: 'Rust proxy',
-        detail: 'Custom binary protocol reduced CPU −20%, memory −50% at scale.',
-      },
-    ],
-    accent: 'from-brand-600 via-brand-700 to-ink-900',
+    accent: 'from-brand-500 to-brand-700',
   },
   {
-    id: 'architecture',
-    eyebrow: 'Architecture',
-    title: 'Architecture for scale & change',
+    id: 'systems',
+    eyebrow: 'Scalable Systems',
+    title: 'Build platforms that support growth',
     summary:
-      'Independent review, migration plans, and the first slice shipped — so the next ones are repeatable.',
+      'Growth exposes every hidden constraint inside a platform. Improve reliability, reduce infrastructure waste, and evolve architecture intentionally so scaling the business does not mean slowing the roadmap.',
     activities: [
-      'Independent architecture review and risk assessment',
-      'Migration planning and execution',
-      'Architecture decision records for team alignment',
-      'Hands-on implementation of the migration',
+      'Architecture reviews focused on scalability, reliability, and operational risk',
+      'Modernization and migration planning with hands-on implementation',
+      'Platform improvements that reduce maintenance and coordination costs',
+      'Infrastructure and system design aligned with long-term product growth',
     ],
     outcomes: [
-      'Deployment frequency and lead time',
-      'System reliability and scalability',
-      'Team onboarding efficiency',
-      'Architecture risk reduction',
+      'Systems that scale without constant rewrites',
+      'Lower cloud and infrastructure costs',
+      'Fewer production incidents',
+      'Faster onboarding for new engineers',
     ],
-    wins: [
-      {
-        metric: '4 microservices',
-        label: 'Monolith → DDD',
-        detail: 'Refactored Python monolith into hexagonal microservices; replaced Flask with FastAPI + Pydantic.',
-      },
-      {
-        metric: '3× faster delivery',
-        label: 'Deploy frequency',
-        detail: 'E-commerce ingestion refactored: 10× throughput, 10× lower resource usage, −60% lead time.',
-      },
-    ],
-    accent: 'from-accent-500 via-accent-700 to-ink-900',
+    accent: 'from-accent-500 to-brand-600',
   },
   {
-    id: 'culture',
-    eyebrow: 'Engineering Practice',
-    title: 'The engineering practice',
+    id: 'operations',
+    eyebrow: 'Engineering Operations',
+    title: 'Create engineering organizations built for flow',
     summary:
-      'Metrics, reviews, and incident practice that keep paying off after we leave.',
+      'Strong engineering organizations operate with clarity, fast feedback, and predictable execution. Improve delivery metrics, reduce coordination overhead, and create processes that help teams move faster under pressure.',
     activities: [
-      "Engineering metrics and dashboards your team actually uses",
-      'Effective code review and CI workflows that reduce friction',
-      'Knowledge sharing through mentoring, design reviews, and ADR practice',
-      "Incident response and postmortem processes that teams actually follow",
+      'Improve engineering workflows using delivery and reliability metrics',
+      'Reduce friction in code review, incident response, and release processes',
+      'Strengthen operational practices through mentoring and embedded leadership',
+      'Establish feedback loops that improve reliability and team effectiveness',
     ],
     outcomes: [
-      'Deployment frequency and lead time',
-      'Incident response and recovery time',
-      'Code review efficiency',
-      'Team onboarding speed',
-      'Operational reliability',
+      'Improved deployment frequency and stability',
+      'Faster recovery from incidents',
+      'Reduced coordination overhead',
+      'Engineering teams that execute with confidence',
     ],
-    wins: [
-      {
-        metric: '92% coverage',
-        label: 'Test reliability',
-        detail: 'From 12% to 92% across services; added AI model benchmarks for fast iteration.',
-      },
-      {
-        metric: 'Full observability',
-        label: 'Distributed tracing',
-        detail: 'OpenTelemetry + Tempo + Prometheus/Grafana + Loki; measurable reliability improvements.',
-      },
-      {
-        metric: 'TDD adoption',
-        label: 'Team mentoring',
-        detail: 'Coaching engineers on TDD and refactoring for more reliable implementations.',
-      },
-      {
-        metric: 'Reproducible builds',
-        label: 'Nix environments',
-        detail: 'Standardized local dev, CI, and production deployments with Nix.',
-      },
-    ],
-    accent: 'from-amber-500 via-pink-500 to-brand-700',
+    accent: 'from-accent-500 via-brand-700 to-brand-900',
   },
 ];
 
-export const steps: ReadonlyArray<Step> = [
-  {
-    title: 'Find',
-    body: 'We start with measurement — identifying bottlenecks, waste, and risk through data-driven analysis.',
-  },
-  {
-    title: 'Fix',
-    body: 'We implement changes directly in your codebase alongside your team, ensuring knowledge transfer and ownership.',
-  },
-  {
-    title: 'Compound',
-    body: 'We leave behind improved practices, documentation, and tools that continue to deliver value after our engagement.',
-  },
-];
 
 export const stacks: ReadonlyArray<string> = [
   'Python',

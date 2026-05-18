@@ -16,10 +16,15 @@ const links: ReadonlyArray<{ href: string; label: string }> = [
     {/* Logo + slogan */}
     <div class="flex items-center gap-3">
       <a href="/" class="flex items-center gap-2" aria-label={`${SITE.name} — Home`}>
-        <span
-          class="inline-flex h-8 w-8 items-center justify-center rounded-full bg-gradient-to-br from-brand-500 via-brand-700 to-accent-600 text-white font-bold"
+        <img
+          src="/favicon-round.svg"
+          alt=""
+          width="32"
+          height="32"
+          decoding="async"
+          class="h-8 w-8"
           aria-hidden="true"
-        >E</span>
+        />
         <span class="font-display text-lg font-semibold text-ink-900">{SITE.name}</span>
       </a>
       <span aria-hidden="true" class="hidden h-4 w-px bg-slate-300 md:block"></span>

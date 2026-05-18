@@ -7,9 +7,9 @@
 export const SITE = {
   name: 'Elerem',
   legalName: 'Elerem',
-  tagline: 'Independent software engineering consultancy',
+  tagline: 'Helping teams fall back in love with their codebase',
   description:
-    'Elerem is an independent software engineering consultancy that helps technology companies eliminate waste, improve performance, and build sustainable engineering capabilities. We combine hands-on engineering expertise with architectural rigor to deliver measurable improvements in system reliability, performance, and development velocity.',
+    'We help software teams eliminate tech debt, ship with confidence, and build engineering practices that last — so you can focus on what matters.',
   url: 'https://elerem.com',
   locale: 'en_US',
   language: 'en',
