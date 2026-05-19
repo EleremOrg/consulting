@@ -4,6 +4,7 @@ description: "Big-bang rewrites rarely ship. Here's the pragmatic, incremental p
 publishedAt: 2026-03-14
 updatedAt: 2026-04-02
 tags: ["architecture", "legacy-modernization", "engineering-strategy"]
+draft: true
 ---
 
 Every few years a team looks at their codebase and declares: *"We should just rewrite it."* Nine times out of ten, the big-bang rewrite fails — not because engineers aren't talented, but because the business can't afford to freeze product work for 18 months while the new system catches up.

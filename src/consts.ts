@@ -34,6 +34,5 @@ export const SITE = {
  * and so is not included here.
  */
 export const NAV_LINKS: ReadonlyArray<{ href: string; label: string }> = [
-  // { href: '/#services', label: 'Services' }, // merged into the home page
-  // { href: '/blog', label: 'Blog' }, // hidden until first post is published
+  { href: '/blog', label: 'Blog' },
 ];

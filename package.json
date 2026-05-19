@@ -6,8 +6,6 @@
   "description": "Elerem — Independent software consultancy website built with Astro.",
   "scripts": {
     "favicons": "node scripts/build-favicon-round.mjs",
-    "predev": "pnpm run favicons",
-    "prebuild": "pnpm run favicons",
     "dev": "astro dev",
     "build": "astro build",
     "preview": "astro build && wrangler dev",
