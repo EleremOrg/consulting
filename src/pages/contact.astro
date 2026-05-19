@@ -17,6 +17,12 @@ const contactLd = {
 };
 ---
 
+<script
+  is:inline
+  src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+  async
+  defer></script>
+
 <BaseLayout
   title="Contact"
   description="Not sure if we're the right fit? Share your project and get feedback within one business day."
@@ -28,7 +34,6 @@ const contactLd = {
     title="Let's discuss your project"
     description="Not sure if we're the right fit? No problem. Share what you're working on, whether it's a greenfield rebuild, scaling challenges, or simply needing senior technical leadership, and we'll give you feedback on how we can help. Expect a thoughtful response within one business day."
   >
-
     <form
       name="contact"
       method="POST"
@@ -113,11 +118,6 @@ const contactLd = {
     </div>
   </section>
 
-  <script
-    src="https://challenges.cloudflare.com/turnstile/v0/api.js"
-    async
-    defer></script>
-
   {/* Cal.com loader */}
   <script is:inline defer>
     (function () {
@@ -161,7 +161,7 @@ const contactLd = {
         Cal.ns["30min"]("inline", {
           elementOrSelector: "#my-cal-inline-30min",
           config: { layout: "month_view", useSlotsViewOnSmallScreen: "true" },
-          calLink: "lucas-montes-9vahqq/30min",
+           calLink: "lucas-montes/30min",
         });
         Cal.ns["30min"]("ui", {
           hideEventTypeDetails: false,
