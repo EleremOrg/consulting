@@ -6,7 +6,9 @@
   "description": "Elerem — Independent software consultancy website built with Astro.",
   "scripts": {
     "favicons": "node scripts/build-favicon-round.mjs",
+    "og": "node scripts/build-og.mjs",
     "dev": "astro dev",
+    "prebuild": "pnpm run favicons && pnpm run og",
     "build": "astro build",
     "preview": "astro build && wrangler dev",
     "check": "astro check --minimumSeverity warning",
@@ -22,6 +24,7 @@
   "devDependencies": {
     "@tailwindcss/typography": "^0.5.19",
     "@tailwindcss/vite": "^4.2.4",
+    "sharp": "^0.35.5",
     "tailwindcss": "^4.2.4",
     "wrangler": "^4.85.0"
   }

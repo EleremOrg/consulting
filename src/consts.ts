@@ -10,10 +10,10 @@ export const SITE = {
   tagline: 'Helping teams fall back in love with their codebase',
   description:
     'We help software teams eliminate tech debt, ship with confidence, and build engineering practices that last — so you can focus on what matters.',
-  url: 'https://elerem.com',
+  url: 'https://consulting.elerem.com',
   locale: 'en_US',
   language: 'en',
-  defaultOgImage: '/og/default.svg',
+  defaultOgImage: '/og/default.png',
   twitter: '@elerem',
   email: 'hello@elerem.com',
   founderName: 'Elerem Team',
@@ -23,7 +23,6 @@ export const SITE = {
     addressCountry: 'EU',
   },
   sameAs: [
-    'https://github.com/elerem',
     'https://www.linkedin.com/company/elerem',
   ],
 } as const;

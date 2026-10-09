@@ -7,10 +7,11 @@ import { z } from 'astro/zod'
  *  - publishedAt/updatedAt feed Article JSON-LD and sitemap lastmod
  *  - canonicalUrl lets you syndicate without duplicate-content penalties
  *  - noindex flags drafts out of search results at build time
+ *  - cover points at a static OG image under public/og/ (see scripts/build-og.mjs)
  */
 const blog = defineCollection({
   loader: glob({ pattern: '**/*.{md,mdx}', base: './src/content/blog' }),
-  schema: ({ image }) =>
+  schema: () =>
     z.object({
       title: z.string().min(10).max(70),
       description: z.string().min(50).max(170),
@@ -18,7 +19,8 @@ const blog = defineCollection({
       updatedAt: z.coerce.date().optional(),
       author: z.string().default('Elerem Team'),
       tags: z.array(z.string()).default([]),
-      cover: image().optional(),
+      /** Static path under public/ (e.g. /og/<slug>.png) used as the Open Graph image */
+      cover: z.string().optional(),
       coverAlt: z.string().optional(),
       draft: z.boolean().default(false),
       noindex: z.boolean().default(false),

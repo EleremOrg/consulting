@@ -44,6 +44,8 @@ const breadcrumbLd = {
 <BaseLayout
   title={post.data.title}
   description={post.data.description}
+  image={post.data.cover}
+  ogImageAlt={post.data.coverAlt}
   ogType="article"
   noindex={post.data.noindex}
   canonicalPath={post.data.canonicalUrl ? undefined : `/blog/${post.id}`}

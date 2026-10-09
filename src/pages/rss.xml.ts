@@ -21,6 +21,5 @@ export async function GET(context: APIContext) {
       author: `${SITE.email} (${post.data.author})`,
     })),
     customData: `<language>${SITE.language}</language>`,
-    stylesheet: '/rss-styles.xsl',
   });
 }
