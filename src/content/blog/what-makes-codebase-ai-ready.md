@@ -8,69 +8,76 @@ cover: "/og/what-makes-codebase-ai-ready.png"
 coverAlt: "What makes a codebase AI-ready? A practical checklist"
 ---
 
-The question most teams ask is *"which AI coding agent should we buy?"* The better question is *"is our codebase ready for one?"*
+# What makes a codebase AI-ready?
 
-Agents work well when the codebase already has good patterns and clear abstractions — for the same reason humans do. They let you (or the agent) work on one specific part without having to care about the rest of the code. Where that property doesn't hold, no tool will save you.
+The question most teams ask is *which AI coding agent should we buy?* The better question is *is our codebase ready for one (or many)?*
 
-Here's what we've found actually matters.
+Agents work well when a codebase already has good patterns, tests and clear abstractions, for the same reason humans do. They let you work on one part of a system without needing to understand every other part. When those boundaries are unclear, changes become harder to reason about, review, and verify. A more capable tool doesn't remove that difficulty; it can make changes faster than the team can safely evaluate them.
 
-## 1. Context that's synthesized, not scattered
+So what actually makes a codebase ready for AI-assisted development?
 
-Our working setup: a single place where the current state of a project is kept, maintained as it changes — everything an agent needs in order to work on it, synthesized so it's straightforward and useful rather than a pile of documents left to rot.
+## Context that stays current
 
-The distinction matters more than it sounds. A pile of documents is not context. What an agent needs is the *current* state of the system: how it is put together, which boundaries hold and which are only aspirational, where the known hazards are, what has already been tried and rejected. Six-month-old documents are worse than none, because the agent will treat them as current and reason confidently from them.
+An agent needs a reliable picture of the system it's working in: how the architecture fits together, which boundaries are real, where the known hazards are, and what has already been tried and rejected. That information needs to live somewhere accessible, in a form that's maintained as the system changes.
 
-If your agent has to guess your architecture, it will guess wrong, confidently.
+A pile of documents isn't necessarily useful context. Architecture notes, old plans, and abandoned decisions can be actively misleading when they no longer reflect the code. What matters is a synthesized, current view of the system that helps an agent make decisions without having to reconstruct everything from scratch.
 
-## 2. Clear boundaries
+If an agent has to guess how your architecture works, it will sometimes guess wrong, and it can do so convincingly. Good context reduces the number of assumptions it has to make; it doesn't eliminate the need to verify its work.
 
-Good abstractions are what let anyone — human or model — change one thing without reading everything. If every change requires understanding the whole system first, agents will produce changes that look local and break things elsewhere.
+## Boundaries that make changes local
 
-This is the one item that most reliably determines whether agent adoption pays off. On a codebase with real boundaries, an agent's change stays contained and reviewable. On a codebase where everything touches everything, the same change is a gamble — and because the agent produced it quickly, it will merge quickly, and the breakage will surface later and somewhere else.
+Clear abstractions let a developer change one part of a system without having to understand every other part. The same property makes a codebase easier for an agent to work in.
 
-## 3. Tests that test something
+When boundaries hold, a change can stay contained and remain relatively easy to review. When everything depends on everything else, a change that looks local can have consequences elsewhere, and those consequences may not appear until later. The agent can still produce a plausible implementation, but the team has a much harder job establishing whether it's safe.
 
-Now that agents can generate large volumes of tests quickly, the risk isn't missing coverage — it's **false confidence**. Suites full of meaningless assertions (`assert(true)` passes too) go green forever and prove nothing.
+This is one of the most important foundations for agent-assisted development. The question isn't whether the codebase follows a particular architectural style. It's whether its actual structure gives contributors predictable places to make changes, with dependencies and side effects that can be understood.
 
-This is worth being concrete about, because the failure mode is embarrassing in hindsight. It's not unusual to inherit a suite that is green across the board and asserts almost nothing — the reporting says you're covered, and in any meaningful sense you are not. The gap between the two is invisible until something breaks and the suite doesn't notice.
+## Tests that provide meaningful feedback
 
-Fixing it is unglamorous work, and the number is not the point. What matters is that every assertion has to earn its place, and that the standard gets enforced in review so it can't quietly slide back. A coverage figure will tell you whether the tests exist. It will not tell you whether they would catch the defect.
+Agents can generate tests quickly, but generating tests is not the same as establishing confidence in a change. We've seen codebases with assertions such as assert(true): the test passes every time but proves nothing about the behavior that matters.
 
-The lesson is the order of operations: tests written to raise a metric are not the same as tests written to catch a defect, and only one of them tells you whether a change is safe.
+Coverage alone doesn't solve this. It tells you which code has been executed, not whether the tests would catch a defect. Three techniques can make the feedback loop more trustworthy.
 
-The bar shifts from *having tests* to *having tests that assert something meaningful*. For an agent, the test suite is its feedback loop; for you, it's the only automated check between "looks plausible" and production.
+*Property-based testing* checks general properties across many automatically generated inputs, rather than relying only on individually written examples. It helps uncover edge cases and combinations a developer might not anticipate, reducing the need to hand-write a test for every variation.
 
-A weak suite is worse than no suite for agent-assisted work. It doesn't just fail to protect you — it actively certifies work that shouldn't ship.
+*Mutation testing* deliberately introduces small defects, such as reversing a condition, and checks whether the tests catch them. If the suite stays green, it may be exercising the code without actually verifying its behavior.
 
-## 4. Conventions written down and enforced
+*Deterministic simulation testing* exercises end-to-end behavior in a controlled, repeatable environment. It helps uncover bugs that emerge from interactions between components or sequences of events, while making failures reproducible and easier to investigate.
 
-What we've tightened up specifically because agents read our code:
+These techniques complement each other: property-based testing explores variations, mutation testing checks whether tests detect mistakes, and deterministic simulation testing exposes unwanted behavior across the system.
 
-- **Comments describing intent** — what something is *for*, not what it mechanically does.
-- **Clear, consistent abstractions** so similar problems look similar everywhere.
-- **Stricter linter rules and enforced style** — mechanical consistency is free quality for both contributors and agents.
-- **Measurement in the loop** — so performance claims are verified rather than asserted.
+This matters even more when agents generate code faster than a team can inspect it manually. The goal isn't to maximize test count or coverage, but to build a feedback loop that provides credible evidence that a change works as intended. A green suite should mean something.
 
-Every convention the linter enforces is one less thing the agent — and the reviewer — has to guess.
+## Conventions that are explicit and enforced
 
-Written-but-not-enforced is half a convention. A rule that lives in a document and not in the pipeline will be violated by every agent run and every tired human, and the resulting inconsistency is exactly the kind of drift that makes a codebase harder to reason about over time.
+Agents work with the patterns they can observe. When similar problems are solved in different ways throughout a codebase, the agent has to infer which approach to follow. When conventions are clear and consistent, it has a better chance of making a change that fits the surrounding system.
 
-## 5. One standard, regardless of who wrote it
+Some of that guidance belongs in the code itself. Comments should explain intent and constraints, not merely restate what the code does. Similar problems should use recognizable abstractions. Performance claims should be checked through measurement rather than accepted because an implementation looks efficient.
 
-We hold AI-generated code to exactly the same standards as human-written code — if anything, being more pedantic pays off, because it keeps the system maintainable and forces every change to justify itself.
+Other conventions should be enforced mechanically. Linters, formatters, type checks, and automated tests can catch many inconsistencies before a reviewer has to. Every rule enforced by tooling is one less thing both the agent and the reviewer have to remember or guess.
 
-Worth noting *why* this is different with agents: a human who doesn't understand the change tends to slow down. An agent produces plausible output at a rate no reviewer can absorb, so any gap in enforcement becomes permanent within weeks. The standard has to be enforced by tooling, because it will not be enforced by attention.
+A convention that exists only in a document is easy to miss. If a rule matters, make it part of the development workflow wherever practical. That helps prevent inconsistency from accumulating across both human and agent contributions.
 
-That last part is cultural, not technical. Teams where people collaborate — discuss designs, review each other seriously, refuse to blindly paste generated output — get good results. Teams where pasting is the workflow don't, no matter which model they run.
+## The same standards, whoever wrote the code
 
-## A note on where we sit
+AI-generated code should meet the same standards as code written by a person. The implementation still needs to be understandable, testable, maintainable, and justified by the problem it solves. Generating code quickly isn't a reason to accept a change that the team wouldn't otherwise approve.
 
-We build and run machine learning systems in production, not just prompts, and that shapes this list. When we say an agent can't evaluate tradeoffs, we mean it has no mechanism for doing so in the work — not that the model lacks the vocabulary to discuss them.
+There is a practical reason to be especially disciplined here. A human developer who doesn't understand a change may pause, ask questions, or struggle to finish it. An agent can produce plausible output much faster than a reviewer can fully evaluate it. If the workflow relies on reviewers catching every issue through attention alone, the volume of output will overwhelm the process.
 
-If your team is still picking a tool, that decision is worth maybe a day. If your team is standing up agent-assisted development, the work in sections 1 through 4 is what determines whether it produces anything worth keeping.
+Tooling helps enforce mechanical requirements, but it can't replace engineering judgment. Teams still need to discuss designs, review changes seriously, and understand the tradeoffs behind important decisions. Blindly adding generated code into a codebase is not an engineering strategy, regardless of which model produced it.
+
+We build and run machine learning systems in production, not just prompts, and that experience shapes how we approach this. When we say an agent can't evaluate a tradeoff, we mean that generating a convincing discussion of the tradeoff is not the same as having a reliable process for evaluating it in the context of the actual system. That process still needs evidence, constraints, and human accountability.
+
+## Readiness is an engineering property
+
+Choosing an AI coding agent matters, but the surrounding engineering system determines how much value you can get from it. Current context helps the agent understand the system. Clear boundaries make changes easier to contain. Meaningful tests provide feedback. Enforced conventions reduce guesswork. Consistent review standards help ensure that faster output doesn't become faster accumulation of technical debt.
+
+These foundations aren't unique to AI. They're the same practices that make software easier for a team to change and maintain. Agents make them more consequential because they increase the rate at which changes can be proposed, including changes that are plausible but wrong.
+
+If your team is introducing or using AI-assisted development, the useful question isn't just which tool performs best in a benchmark. It's where your current engineering practices give an agent reliable guidance and feedback, and where they leave it guessing.
 
 ---
 
-Want an honest assessment of whether your engineering system is ready for AI-assisted development? [Get in touch](/contact) — we'll find what would actually block it.
+**Want an honest assessment of whether your engineering system is ready for AI-assisted development?** [Get in touch](/contact) to discuss what would help and what might block adoption.
 
-For the argument behind this checklist, see [AI agents don't fix bad codebases](/blog/ai-agents-amplify-bad-codebases).
+For the broader argument behind this checklist, see [AI agents don't fix bad codebases](/blog/ai-agents-amplify-bad-codebases).
