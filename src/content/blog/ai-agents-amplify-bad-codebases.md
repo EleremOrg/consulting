@@ -1,9 +1,9 @@
 ---
 title: "AI agents don't fix bad codebases. They amplify them."
 description: "AI coding agents multiply throughput on healthy systems and accelerate decay on unhealthy ones. Why engineering foundations matter more than which agent you pick."
-publishedAt: 2026-10-19
+publishedAt: 2026-10-15
 tags: ["ai", "llm", "technical-debt", "engineering-practices"]
-draft: true
+draft: false
 cover: "/og/ai-agents-amplify-bad-codebases.png"
 coverAlt: "AI agents don't fix bad codebases — they amplify them"
 ---
@@ -107,4 +107,4 @@ If your team adopted autonomous coding agents and output went up while delivery 
 
 If your team adopted AI tooling and delivery got *less* predictable instead of more, [get in touch](/contact) — identifying the constraint that's actually slowing you down is exactly what we do.
 
-If you want the practical side, the checklist in [What makes a codebase AI-ready?](/blog/what-makes-codebase-ai-ready) covers what to put in place first.
+<!-- If you want the practical side, the checklist in [What makes a codebase AI-ready?](/blog/what-makes-codebase-ai-ready) covers what to put in place first. -->

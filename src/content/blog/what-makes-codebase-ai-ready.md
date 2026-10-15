@@ -1,7 +1,7 @@
 ---
 title: "What makes a codebase AI-ready?"
 description: "Agents work well where patterns are already good. A practical checklist: context, boundaries, meaningful tests, and conventions that help agents — and humans."
-publishedAt: 2026-10-26
+publishedAt: 2026-10-22
 tags: ["ai", "llm", "architecture", "testing"]
 draft: true
 cover: "/og/what-makes-codebase-ai-ready.png"
